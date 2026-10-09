@@ -1,0 +1,5 @@
+[
+  {"order_id":"ord-3001","expected":{"status":"PROCESSING","total_minor_units":4999,"currency":"EUR","item_count":2,"source":"order_service"},"observed":{"status":"PROCESSING","total_minor_units":4999,"currency":"EUR","item_count":2,"source":"fulfilment_feed"}},
+  {"order_id":"ord-3002","expected":{"status":"CONFIRMED","total_minor_units":2500,"currency":"EUR","item_count":1,"source":"order_service"},"observed":{"status":"PROCESSING","total_minor_units":2500,"currency":"EUR","item_count":1,"source":"fulfilment_feed"}},
+  {"order_id":"ord-3003","expected":{"status":"SHIPPED","total_minor_units":8700,"currency":"EUR","item_count":3,"source":"order_service"},"observed":{"status":"SHIPPED","total_minor_units":8900,"currency":"EUR","item_count":2,"source":"fulfilment_feed"}}
+]
