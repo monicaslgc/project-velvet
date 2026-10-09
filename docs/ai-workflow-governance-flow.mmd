@@ -1,0 +1,12 @@
+flowchart TD
+    A[Agent proposes an action] --> B{Required fields valid?}
+    B -- No --> M[MANUAL_REVIEW]
+    B -- Yes --> C{Action type supported?}
+    C -- No --> M
+    C -- Yes --> D{Read-only or internal draft?}
+    D -- Yes --> E[ALLOW within scoped policy]
+    D -- No --> F[REQUIRE_APPROVAL]
+    E --> G[Return decision and reasons]
+    F --> G
+    M --> G
+    G --> H[No action is executed by this evaluator]
