@@ -1,0 +1,26 @@
+{
+  "skill": "ai-workflow-governance",
+  "scope_note": "Illustrative traceability for the governance skill only; this does not automatically parse or prove all natural-language documentation.",
+  "contracts": [
+    {
+      "contract_id": "GOV-001",
+      "requirement": "Read-only inspection and internal draft preparation may be allowed within scope.",
+      "case_ids": ["read-only-allowed", "internal-draft-allowed"]
+    },
+    {
+      "contract_id": "GOV-002",
+      "requirement": "Customer communication and financial, order, or inventory changes require approval and are not autonomously executable.",
+      "case_ids": ["customer-message-needs-approval", "financial-action-needs-approval", "order-mutation-needs-approval", "inventory-mutation-needs-approval"]
+    },
+    {
+      "contract_id": "GOV-003",
+      "requirement": "Unknown action types fail closed to manual review.",
+      "case_ids": ["unknown-action-manual-review"]
+    },
+    {
+      "contract_id": "GOV-004",
+      "requirement": "Malformed proposals fail closed to manual review.",
+      "case_ids": ["blank-identifier-manual-review"]
+    }
+  ]
+}
