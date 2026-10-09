@@ -20,7 +20,11 @@ A read-only comparison checks two snapshots of the same order across status, tot
 
 A deterministic policy evaluates proposed agent actions against explicit autonomy boundaries. Read-only inspection and internal drafts are allowed within scope; customer communication, financial transactions, order or inventory mutations, and external system changes require human approval. Invalid or unknown actions fail closed to manual review. The evaluator only returns a decision; it never executes the action or integrates with external systems.
 
-### What this demonstrates
+### Demo 5: Agent Evaluation & Regression Kit
+
+A reusable regression harness runs versioned synthetic cases against the deterministic workflow-governance evaluator, compares declared expected fields, reports pass/fail and pass rate, and exits with code 1 if a regression is detected. It covers allowed actions, approval-required actions, unknown actions, and malformed input. This evaluates conformance to encoded policy cases; it does not benchmark an LLM or prove general reasoning quality.
+
+## What this demonstrates
 - Explicit business rules before AI-assisted recommendations
 - Explainable classification and routing
 - Fail-closed handling for invalid or unknown input
@@ -43,6 +47,9 @@ python examples/audit_demo.py
 python examples/triage_demo.py
 python examples/reconciliation_demo.py
 python examples/governance_demo.py
+examples/agent-evaluation-cases.json
+examples/evaluate_agent_policy.py
+python examples/evaluate_agent_policy.py
 ```
 
 ## Repository map
@@ -53,6 +60,7 @@ src/velvet/exception_triage.py
 src/velvet/order_reconciliation.py
 src/velvet/audit_trail.py
 src/velvet/workflow_governance.py
+src/velvet/agent_evaluation.py
 examples/orders.json
 examples/exceptions.json
 examples/run_demo.py
@@ -67,16 +75,19 @@ docs/audit-trail-review-flow.mmd
 docs/order-exception-triage-flow.mmd
 docs/order-reconciliation-flow.mmd
 docs/ai-workflow-governance-flow.mmd
+docs/agent-evaluation-regression-flow.mmd
 skills/order-lifecycle-consistency/SKILL.md
 skills/order-exception-triage/SKILL.md
 skills/order-reconciliation/SKILL.md
 skills/audit-trail-human-review/SKILL.md
 skills/ai-workflow-governance/SKILL.md
+skills/agent-evaluation-regression/SKILL.md
 tests/test_order_lifecycle.py
 tests/test_exception_triage.py
 tests/test_order_reconciliation.py
 tests/test_audit_trail.py
 tests/test_workflow_governance.py
+tests/test_agent_evaluation.py
 .github/workflows/tests.yml
 ```
 
@@ -114,6 +125,10 @@ Supported routes: payment delay → payments operations; inventory mismatch → 
 - The demo does not implement approval capture, identity verification, durable audit storage, or execution enforcement in another service.
 
 Run `python examples/governance_demo.py` to see the decisions. The Mermaid flow is in `docs/ai-workflow-governance-flow.mmd`.
+
+## Agent evaluation and regression
+
+Run `python examples/evaluate_agent_policy.py` to execute the versioned governance cases. Every case has a unique ID, explicit input, and expected output fields. A mismatch returns a failing process exit code so CI can detect policy drift. Update expected results only when a policy change is intentional and reviewed. The runner evaluates the deterministic policy implementation, not the general quality of an LLM.
 
 ## Design principle
 
