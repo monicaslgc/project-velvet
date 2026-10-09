@@ -1,0 +1,5 @@
+[
+  {"scenario":"valid_confirmation","event_id":"evt-demo-001","order_id":"ord-demo-001","current_status":"CREATED","to_status":"CONFIRMED","current_version":0,"expected_version":0},
+  {"scenario":"stale_update","event_id":"evt-demo-002","order_id":"ord-demo-002","current_status":"PROCESSING","to_status":"SHIPPED","current_version":4,"expected_version":3},
+  {"scenario":"invalid_transition","event_id":"evt-demo-003","order_id":"ord-demo-003","current_status":"CREATED","to_status":"SHIPPED","current_version":0,"expected_version":0}
+]
