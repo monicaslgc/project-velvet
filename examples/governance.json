@@ -1,0 +1,7 @@
+[
+  {"action_id":"gov-001","action_type":"READ_ONLY","requested_by":"demo-agent","description":"Compare order snapshots without changing either source."},
+  {"action_id":"gov-002","action_type":"INTERNAL_DRAFT","requested_by":"demo-agent","description":"Prepare an internal summary for an operations specialist."},
+  {"action_id":"gov-003","action_type":"CUSTOMER_COMMUNICATION","requested_by":"demo-agent","description":"Send a proposed delivery update to a customer."},
+  {"action_id":"gov-004","action_type":"ORDER_MUTATION","requested_by":"demo-agent","description":"Change an order status from processing to cancelled."},
+  {"action_id":"gov-005","action_type":"UNKNOWN_ACTION","requested_by":"demo-agent","description":"A deliberately unsupported action type."}
+]
