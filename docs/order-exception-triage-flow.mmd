@@ -1,0 +1,19 @@
+flowchart TD
+    A[Receive exception record] --> B{Payload valid?}
+    B -- No --> X[P1 / manual review / withhold routing]
+    B -- Yes --> C{Category supported?}
+    C -- No --> Y[Manual review / no inferred action]
+    C -- Yes --> D{Financial risk or repeat count >= 3?}
+    D -- Yes --> E[P1 / human review required]
+    D -- No --> F{Customer impact and age >= 24h?}
+    F -- Yes --> E
+    F -- No --> G{Customer impact or age >= 12h or repeat count >= 2?}
+    G -- Yes --> H[P2]
+    G -- No --> I[P3]
+    E --> J[Assign category owner and recommend next step]
+    H --> J
+    I --> J
+    Y --> K[Do not execute operational action]
+    X --> K
+    J --> L[Return priority, evidence, route and review flag]
+    L --> M[No order mutation or external side effect]
