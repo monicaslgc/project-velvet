@@ -28,7 +28,7 @@ def test_newly_blocked_and_approval_tightened_are_reported():
     after = [{"case_id": "x", "decision": {"outcome": "REQUIRE_APPROVAL", "allowed_to_execute": False, "approval_required": True, "valid": True, "reasons": []}}]
     report = compare_policy_snapshots(before, after, "v1", "v2")
     assert report.changes[0].category == "NEWLY_BLOCKED"
-    assert "APPROVAL_TIGHTENED" in " ".join(report.changes[0].details)
+    assert "approval requirement was added" in " ".join(report.changes[0].details)
     assert report.changes[0].risk == "MEDIUM"
 
 
