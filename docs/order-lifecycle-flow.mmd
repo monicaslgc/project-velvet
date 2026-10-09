@@ -1,0 +1,13 @@
+flowchart TD
+    A[Receive synthetic order event] --> B{Required fields valid?}
+    B -- No --> X[INVALID_INPUT / fail closed]
+    B -- Yes --> C{Event ID already seen?}
+    C -- Yes --> D[DUPLICATE_EVENT / no-op]
+    C -- No --> E{Expected version equals current version?}
+    E -- No --> F[VERSION_CONFLICT / human review]
+    E -- Yes --> G{Source status matches current status?}
+    G -- No --> H[BLOCKED_INVALID_TRANSITION]
+    G -- Yes --> I{Transition allowed by policy?}
+    I -- No --> H
+    I -- Yes --> J[ALLOWED / propose next status and version]
+    J --> K[No state mutation performed by this demo]
