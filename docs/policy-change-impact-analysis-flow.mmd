@@ -1,0 +1,13 @@
+flowchart TD
+    A[Load baseline and candidate snapshots] --> B{Versions and cases valid?}
+    B -- No --> C[Reject malformed comparison]
+    B -- Yes --> D[Match cases by stable case ID]
+    D --> E[Compare permission and approval fields]
+    E --> F[Classify outcome, validity, reason and coverage changes]
+    F --> G[Assign illustrative risk labels]
+    G --> H[Produce explainable impact report]
+    H --> I{Any HIGH-risk changes?}
+    I -- Yes --> J[Human review before release]
+    I -- No --> K[Review report and regression coverage]
+    J --> L[No automatic deployment or execution]
+    K --> L
