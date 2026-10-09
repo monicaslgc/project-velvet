@@ -28,6 +28,10 @@ A reusable regression harness runs versioned synthetic cases against the determi
 
 A machine-readable contract links each in-scope AI workflow governance requirement to stable regression case IDs. A validator detects blank or duplicate contract IDs, missing mappings, duplicate evaluation IDs, and references to cases that no longer exist. Run `python examples/check_skill_contracts.py`. This checks mapping integrity only; it does not semantically prove that natural-language requirements are complete or fully tested. The initial contract covers the governance skill only.
 
+### Demo 7: Decision Replay & Observability
+
+A read-only replay tool compares synthetic historical decision snapshots with the current deterministic governance policy. It reports changed fields and policy-version context without overwriting the original record or executing actions. Run `python examples/replay_decisions.py`. The fixtures are synthetic; this is not a production logging, storage, privacy, or monitoring service.
+
 ## What this demonstrates
 - Explicit business rules before AI-assisted recommendations
 - Explainable classification and routing
@@ -53,6 +57,9 @@ python examples/reconciliation_demo.py
 python examples/governance_demo.py
 python examples/evaluate_agent_policy.py
 python examples/check_skill_contracts.py
+examples/decision-records.json
+examples/replay_decisions.py
+python examples/replay_decisions.py
 ```
 
 ## Repository map
@@ -65,6 +72,7 @@ src/velvet/audit_trail.py
 src/velvet/workflow_governance.py
 src/velvet/agent_evaluation.py
 src/velvet/skill_contracts.py
+src/velvet/decision_replay.py
 contracts/ai-workflow-governance.json
 examples/agent-evaluation-cases.json
 examples/check_skill_contracts.py
@@ -85,6 +93,7 @@ docs/order-reconciliation-flow.mmd
 docs/ai-workflow-governance-flow.mmd
 docs/agent-evaluation-regression-flow.mmd
 docs/skill-contract-testing-flow.mmd
+docs/decision-replay-observability-flow.mmd
 skills/order-lifecycle-consistency/SKILL.md
 skills/order-exception-triage/SKILL.md
 skills/order-reconciliation/SKILL.md
@@ -92,6 +101,7 @@ skills/audit-trail-human-review/SKILL.md
 skills/ai-workflow-governance/SKILL.md
 skills/agent-evaluation-regression/SKILL.md
 skills/skill-contract-testing/SKILL.md
+skills/decision-replay-observability/SKILL.md
 tests/test_order_lifecycle.py
 tests/test_exception_triage.py
 tests/test_order_reconciliation.py
@@ -99,6 +109,7 @@ tests/test_audit_trail.py
 tests/test_workflow_governance.py
 tests/test_agent_evaluation.py
 tests/test_skill_contracts.py
+tests/test_decision_replay.py
 .github/workflows/tests.yml
 ```
 
