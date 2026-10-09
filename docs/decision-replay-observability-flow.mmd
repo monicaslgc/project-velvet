@@ -1,0 +1,11 @@
+flowchart TD
+    A[Versioned synthetic decision records] --> B[Validate record structure and IDs]
+    B --> C[Replay input against current policy]
+    C --> D[Compare recorded and replayed decision fields]
+    D --> E{Decision drift detected?}
+    E -- No --> F[Report unchanged]
+    E -- Yes --> G[Report changed fields]
+    G --> H[Human review before policy release]
+    F --> I[Preserve original record]
+    H --> I
+    I --> J[No actions executed and no history overwritten]
