@@ -1,0 +1,11 @@
+flowchart TD
+ A[Deterministic policy decision] --> B[Create immutable audit value]
+ B --> C{Human review required?}
+ C -- No --> D[NOT_REQUIRED]
+ C -- Yes --> E[PENDING]
+ E --> F{Reviewer disposition}
+ F -- Approve --> G[Record APPROVED disposition]
+ F -- Reject --> H[Record REJECTED disposition]
+ G --> I[Original decision preserved]
+ H --> I
+ I --> J[No order mutation or external side effect]
