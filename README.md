@@ -16,7 +16,11 @@ A deterministic triage policy classifies synthetic exceptions, assigns a priorit
 
 A read-only comparison checks two snapshots of the same order across status, total, currency, and item count. It reports every mismatch with expected and observed values, applies an illustrative severity policy, and flags high-severity discrepancies for human review. It never assumes which source is authoritative and never repairs data automatically.
 
-### What this demonstrates
+### Demo 4: AI Workflow Governance
+
+A deterministic policy evaluates proposed agent actions against explicit autonomy boundaries. Read-only inspection and internal drafts are allowed within scope; customer communication, financial transactions, order or inventory mutations, and external system changes require human approval. Invalid or unknown actions fail closed to manual review. The evaluator only returns a decision; it never executes the action or integrates with external systems.
+
+## What this demonstrates
 - Explicit business rules before AI-assisted recommendations
 - Explainable classification and routing
 - Fail-closed handling for invalid or unknown input
@@ -37,9 +41,11 @@ pytest
 python examples/run_demo.py
 python examples/audit_demo.py
 python examples/triage_demo.py
-examples/reconciliation.json
 examples/reconciliation_demo.py
+examples/governance.json
+examples/governance_demo.py
 python examples/reconciliation_demo.py
+python examples/governance_demo.py
 ```
 
 ## Repository map
@@ -49,6 +55,7 @@ src/velvet/order_lifecycle.py
 src/velvet/exception_triage.py
 src/velvet/order_reconciliation.py
 src/velvet/audit_trail.py
+src/velvet/workflow_governance.py
 examples/orders.json
 examples/exceptions.json
 examples/run_demo.py
@@ -59,14 +66,17 @@ docs/order-lifecycle-states.mmd
 docs/audit-trail-review-flow.mmd
 docs/order-exception-triage-flow.mmd
 docs/order-reconciliation-flow.mmd
+docs/ai-workflow-governance-flow.mmd
 skills/order-lifecycle-consistency/SKILL.md
 skills/order-exception-triage/SKILL.md
 skills/order-reconciliation/SKILL.md
 skills/audit-trail-human-review/SKILL.md
+skills/ai-workflow-governance/SKILL.md
 tests/test_order_lifecycle.py
 tests/test_exception_triage.py
 tests/test_order_reconciliation.py
 tests/test_audit_trail.py
+tests/test_workflow_governance.py
 .github/workflows/tests.yml
 ```
 
@@ -95,6 +105,15 @@ Supported routes: payment delay → payments operations; inventory mismatch → 
 - Status, total, and currency mismatches are HIGH severity and require human review.
 - Item-count mismatches are MEDIUM severity and are reported without automatically requiring review.
 - Both snapshots remain unchanged. The severity policy is illustrative and does not establish the authority of either source.
+
+## Workflow governance policy
+
+- Read-only inspection and internal draft preparation may proceed within their scoped policy.
+- Customer-facing communication, financial transactions, order mutations, inventory mutations, and external-system changes require human approval before any separate execution layer acts.
+- Invalid payloads and unknown action types go to manual review.
+- The demo does not implement approval capture, identity verification, durable audit storage, or execution enforcement in another service.
+
+Run `python examples/governance_demo.py` to see the decisions. The Mermaid flow is in `docs/ai-workflow-governance-flow.mmd`.
 
 ## Design principle
 
