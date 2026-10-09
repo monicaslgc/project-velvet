@@ -1,0 +1,10 @@
+flowchart TD
+    A[Versioned synthetic test cases] --> B[Load case input and expected fields]
+    B --> C[Run deterministic policy evaluator]
+    C --> D[Compare actual and expected fields]
+    D --> E{All cases match?}
+    E -- Yes --> F[Report pass rate and exit 0]
+    E -- No --> G[Report failing cases and exit 1]
+    G --> H[Investigate policy drift]
+    H --> I[Update policy or approve an intentional expectation change]
+    I --> A
