@@ -4,48 +4,63 @@
 
 Project Velvet explores how backend workflows can make order operations more reliable, explainable, and safe to automate. It uses synthetic data and generic business scenarios. It is not a WellaOne implementation and is not affiliated with or connected to any real commerce platform.
 
-## First demo: Order Lifecycle Consistency
+## Demo 1: Order Lifecycle Consistency
 
 A deterministic policy engine evaluates order events before any downstream system acts on them. It checks required fields, duplicate event IDs, expected order versions, and allowed state transitions.
 
+## Demo 2: Order Exception Triage
+
+A deterministic triage policy classifies synthetic exceptions, assigns a priority, routes each known category to a responsible operational team, explains the evidence behind the decision, and flags cases for human review. Unknown categories and malformed payloads fail closed to manual review.
+
 ### What this demonstrates
 - Explicit business rules before AI-assisted recommendations
-- Idempotency checks and optimistic-version conflict detection
-- Fail-closed handling for invalid or conflicting input
-- Structured, explainable decisions
+- Explainable classification and routing
+- Fail-closed handling for invalid or unknown input
+- Human review for high-risk decisions
 - Reusable agent skill instructions
 - Mermaid diagrams, synthetic fixtures, unit tests, and CI
 
 ### Scope boundaries
-This demo is an in-memory evaluator. It does **not** persist an event ledger, mutate a real order, or trigger payment, cancellation, shipment, refund, or customer communication. Duplicate detection is only against IDs supplied in the current evaluation call; production-grade idempotency requires an atomic, durable event ledger. Version checking here detects conflicts but does not resolve concurrency by itself.
+These demos are in-memory evaluators. They do **not** persist an event ledger, mutate a real order, or trigger payment, cancellation, shipment, refund, stock adjustment, or customer communication. Duplicate detection in the lifecycle demo is only against IDs supplied in the current evaluation call; production-grade idempotency requires an atomic, durable event ledger. Version checking detects conflicts but does not resolve concurrency by itself. Exception priorities and thresholds are illustrative policy choices, not claims about any real platform's operating rules.
 
 ## Quick start
+
 Requires Python 3.11+.
+
 ```bash
 python -m pip install -e ".[dev]"
 pytest
 python examples/run_demo.py
 python examples/audit_demo.py
+python examples/triage_demo.py
 ```
 
 ## Repository map
+
 ```text
 src/velvet/order_lifecycle.py
+src/velvet/exception_triage.py
 src/velvet/audit_trail.py
 examples/orders.json
+examples/exceptions.json
 examples/run_demo.py
 examples/audit_demo.py
+examples/triage_demo.py
 docs/order-lifecycle-flow.mmd
 docs/order-lifecycle-states.mmd
 docs/audit-trail-review-flow.mmd
+docs/order-exception-triage-flow.mmd
 skills/order-lifecycle-consistency/SKILL.md
+skills/order-exception-triage/SKILL.md
 skills/audit-trail-human-review/SKILL.md
 tests/test_order_lifecycle.py
+tests/test_exception_triage.py
 tests/test_audit_trail.py
 .github/workflows/tests.yml
 ```
 
-## Decision outcomes
+## Order lifecycle decision outcomes
+
 | Outcome | Meaning |
 |---|---|
 | `ALLOWED` | Event passes policy; proposed next state/version are returned |
@@ -54,18 +69,21 @@ tests/test_audit_trail.py
 | `VERSION_CONFLICT` | Event's expected version differs from the current order version |
 | `BLOCKED_INVALID_TRANSITION` | Requested state transition is not allowed |
 
+## Exception triage policy
+
+- **P1:** explicit financial risk, 3+ occurrences, or customer impact with age of at least 24 hours.
+- **P2:** otherwise, customer impact, age of at least 12 hours, or 2+ occurrences.
+- **P3:** remaining valid exceptions with a supported category.
+- **Unknown category or invalid payload:** route to manual review; do not infer an operational action.
+
+Supported routes: payment delay → payments operations; inventory mismatch → inventory operations; shipment delay → fulfilment operations; address validation → customer operations. These are illustrative synthetic rules.
+
 ## Design principle
-Use deterministic code for policy enforcement. Use AI, where appropriate, to summarize evidence or suggest next steps — never as the authority that bypasses transition rules, version checks, or human approval requirements.
 
-## Roadmap
-1. Order Lifecycle Consistency
-2. Order Exception Triage
-3. Order Reconciliation
-4. Audit Trail and Human Review
-5. AI Workflow Governance
-6. Regression scenarios and reusable skills
-
-All examples use synthetic data and document assumptions, autonomy boundaries, and failure cases.
+Use deterministic code for policy enforcement. Use AI, where appropriate, to summarize evidence or suggest next steps — never as the authority that bypasses transition rules, risk thresholds, or human approval requirements.
 
 ## Audit Trail + Human Review demo
+
 Run `python examples/audit_demo.py`. The demo models immutable audit values and separate review dispositions. It is in-memory only; it does not provide durable storage, tamper-proof guarantees, or order mutation.
+
+All examples use synthetic data and document assumptions, autonomy boundaries, and failure cases.
