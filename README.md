@@ -12,6 +12,10 @@ A deterministic policy engine evaluates order events before any downstream syste
 
 A deterministic triage policy classifies synthetic exceptions, assigns a priority, routes each known category to a responsible operational team, explains the evidence behind the decision, and flags cases for human review. Unknown categories and malformed payloads fail closed to manual review.
 
+## Demo 3: Order Reconciliation
+
+A read-only comparison checks two snapshots of the same order across status, total, currency, and item count. It reports every mismatch with expected and observed values, applies an illustrative severity policy, and flags high-severity discrepancies for human review. It never assumes which source is authoritative and never repairs data automatically.
+
 ### What this demonstrates
 - Explicit business rules before AI-assisted recommendations
 - Explainable classification and routing
@@ -33,6 +37,9 @@ pytest
 python examples/run_demo.py
 python examples/audit_demo.py
 python examples/triage_demo.py
+examples/reconciliation.json
+examples/reconciliation_demo.py
+python examples/reconciliation_demo.py
 ```
 
 ## Repository map
@@ -40,6 +47,7 @@ python examples/triage_demo.py
 ```text
 src/velvet/order_lifecycle.py
 src/velvet/exception_triage.py
+src/velvet/order_reconciliation.py
 src/velvet/audit_trail.py
 examples/orders.json
 examples/exceptions.json
@@ -50,11 +58,14 @@ docs/order-lifecycle-flow.mmd
 docs/order-lifecycle-states.mmd
 docs/audit-trail-review-flow.mmd
 docs/order-exception-triage-flow.mmd
+docs/order-reconciliation-flow.mmd
 skills/order-lifecycle-consistency/SKILL.md
 skills/order-exception-triage/SKILL.md
+skills/order-reconciliation/SKILL.md
 skills/audit-trail-human-review/SKILL.md
 tests/test_order_lifecycle.py
 tests/test_exception_triage.py
+tests/test_order_reconciliation.py
 tests/test_audit_trail.py
 .github/workflows/tests.yml
 ```
@@ -77,6 +88,13 @@ tests/test_audit_trail.py
 - **Unknown category or invalid payload:** route to manual review; do not infer an operational action.
 
 Supported routes: payment delay → payments operations; inventory mismatch → inventory operations; shipment delay → fulfilment operations; address validation → customer operations. These are illustrative synthetic rules.
+
+## Reconciliation policy
+
+- Compare only snapshots with the same order ID; mismatched IDs stop the comparison and require review.
+- Status, total, and currency mismatches are HIGH severity and require human review.
+- Item-count mismatches are MEDIUM severity and are reported without automatically requiring review.
+- Both snapshots remain unchanged. The severity policy is illustrative and does not establish the authority of either source.
 
 ## Design principle
 
