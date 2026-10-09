@@ -1,0 +1,15 @@
+flowchart TD
+    A[Receive two order snapshots] --> B{Both snapshots valid?}
+    B -- No --> X[Invalid input / human review]
+    B -- Yes --> C{Order IDs match?}
+    C -- No --> Y[Stop comparison / human review]
+    C -- Yes --> D[Compare status, total, currency, item count]
+    D --> E{Any discrepancies?}
+    E -- No --> F[Report MATCH]
+    E -- Yes --> G[Report every field-level mismatch]
+    G --> H{Any HIGH severity mismatch?}
+    H -- Yes --> I[Require human review]
+    H -- No --> J[Report MEDIUM discrepancy]
+    F --> K[No source data changed]
+    I --> K
+    J --> K
