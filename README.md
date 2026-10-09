@@ -24,6 +24,10 @@ A deterministic policy evaluates proposed agent actions against explicit autonom
 
 A reusable regression harness runs versioned synthetic cases against the deterministic workflow-governance evaluator, compares declared expected fields, reports pass/fail and pass rate, and exits with code 1 if a regression is detected. It covers allowed actions, approval-required actions, unknown actions, and malformed input. This evaluates conformance to encoded policy cases; it does not benchmark an LLM or prove general reasoning quality.
 
+### Demo 6: Skill Contract Testing
+
+A machine-readable contract links each in-scope AI workflow governance requirement to stable regression case IDs. A validator detects blank or duplicate contract IDs, missing mappings, duplicate evaluation IDs, and references to cases that no longer exist. Run `python examples/check_skill_contracts.py`. This checks mapping integrity only; it does not semantically prove that natural-language requirements are complete or fully tested. The initial contract covers the governance skill only.
+
 ## What this demonstrates
 - Explicit business rules before AI-assisted recommendations
 - Explainable classification and routing
@@ -47,8 +51,8 @@ python examples/audit_demo.py
 python examples/triage_demo.py
 python examples/reconciliation_demo.py
 python examples/governance_demo.py
-examples/agent-evaluation-cases.json
-examples/evaluate_agent_policy.py
+python examples/evaluate_agent_policy.py
+python examples/check_skill_contracts.py
 python examples/evaluate_agent_policy.py
 ```
 
@@ -61,6 +65,7 @@ src/velvet/order_reconciliation.py
 src/velvet/audit_trail.py
 src/velvet/workflow_governance.py
 src/velvet/agent_evaluation.py
+src/velvet/skill_contracts.py
 examples/orders.json
 examples/exceptions.json
 examples/run_demo.py
@@ -76,18 +81,21 @@ docs/order-exception-triage-flow.mmd
 docs/order-reconciliation-flow.mmd
 docs/ai-workflow-governance-flow.mmd
 docs/agent-evaluation-regression-flow.mmd
+docs/skill-contract-testing-flow.mmd
 skills/order-lifecycle-consistency/SKILL.md
 skills/order-exception-triage/SKILL.md
 skills/order-reconciliation/SKILL.md
 skills/audit-trail-human-review/SKILL.md
 skills/ai-workflow-governance/SKILL.md
 skills/agent-evaluation-regression/SKILL.md
+skills/skill-contract-testing/SKILL.md
 tests/test_order_lifecycle.py
 tests/test_exception_triage.py
 tests/test_order_reconciliation.py
 tests/test_audit_trail.py
 tests/test_workflow_governance.py
 tests/test_agent_evaluation.py
+tests/test_skill_contracts.py
 .github/workflows/tests.yml
 ```
 
@@ -129,6 +137,10 @@ Run `python examples/governance_demo.py` to see the decisions. The Mermaid flow 
 ## Agent evaluation and regression
 
 Run `python examples/evaluate_agent_policy.py` to execute the versioned governance cases. Every case has a unique ID, explicit input, and expected output fields. A mismatch returns a failing process exit code so CI can detect policy drift. Update expected results only when a policy change is intentional and reviewed. The runner evaluates the deterministic policy implementation, not the general quality of an LLM.
+
+## Skill contract traceability
+
+The initial contract lives in `contracts/ai-workflow-governance.json` and maps the governance skill's four requirement groups to the versioned evaluation cases. Run `python examples/check_skill_contracts.py` to check references and IDs. A passing check confirms the mapping is structurally consistent, not that the requirements are complete or the tests are sufficient; review the skill and contract together when policy changes.
 
 ## Design principle
 
