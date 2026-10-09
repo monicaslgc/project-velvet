@@ -16,11 +16,11 @@ A deterministic triage policy classifies synthetic exceptions, assigns a priorit
 
 A read-only comparison checks two snapshots of the same order across status, total, currency, and item count. It reports every mismatch with expected and observed values, applies an illustrative severity policy, and flags high-severity discrepancies for human review. It never assumes which source is authoritative and never repairs data automatically.
 
-### Demo 4: AI Workflow Governance
+## Demo 4: AI Workflow Governance
 
 A deterministic policy evaluates proposed agent actions against explicit autonomy boundaries. Read-only inspection and internal drafts are allowed within scope; customer communication, financial transactions, order or inventory mutations, and external system changes require human approval. Invalid or unknown actions fail closed to manual review. The evaluator only returns a decision; it never executes the action or integrates with external systems.
 
-## What this demonstrates
+### What this demonstrates
 - Explicit business rules before AI-assisted recommendations
 - Explainable classification and routing
 - Fail-closed handling for invalid or unknown input
@@ -41,9 +41,6 @@ pytest
 python examples/run_demo.py
 python examples/audit_demo.py
 python examples/triage_demo.py
-examples/reconciliation_demo.py
-examples/governance.json
-examples/governance_demo.py
 python examples/reconciliation_demo.py
 python examples/governance_demo.py
 ```
@@ -61,6 +58,9 @@ examples/exceptions.json
 examples/run_demo.py
 examples/audit_demo.py
 examples/triage_demo.py
+examples/reconciliation_demo.py
+examples/governance.json
+examples/governance_demo.py
 docs/order-lifecycle-flow.mmd
 docs/order-lifecycle-states.mmd
 docs/audit-trail-review-flow.mmd
