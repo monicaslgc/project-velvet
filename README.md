@@ -53,7 +53,6 @@ python examples/reconciliation_demo.py
 python examples/governance_demo.py
 python examples/evaluate_agent_policy.py
 python examples/check_skill_contracts.py
-python examples/evaluate_agent_policy.py
 ```
 
 ## Repository map
@@ -66,6 +65,10 @@ src/velvet/audit_trail.py
 src/velvet/workflow_governance.py
 src/velvet/agent_evaluation.py
 src/velvet/skill_contracts.py
+contracts/ai-workflow-governance.json
+examples/agent-evaluation-cases.json
+examples/check_skill_contracts.py
+examples/evaluate_agent_policy.py
 examples/orders.json
 examples/exceptions.json
 examples/run_demo.py
