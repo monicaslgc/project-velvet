@@ -1,10 +1,137 @@
 [
-  {"case_id":"read-only-allowed","input":{"action_id":"eval-001","action_type":"READ_ONLY","requested_by":"demo-agent","description":"Inspect synthetic order data."},"expected":{"outcome":"ALLOW","allowed_to_execute":true,"approval_required":false,"valid":true}},
-  {"case_id":"internal-draft-allowed","input":{"action_id":"eval-002","action_type":"INTERNAL_DRAFT","requested_by":"demo-agent","description":"Prepare an internal summary."},"expected":{"outcome":"ALLOW","allowed_to_execute":true,"approval_required":false,"valid":true}},
-  {"case_id":"customer-message-needs-approval","input":{"action_id":"eval-003","action_type":"CUSTOMER_COMMUNICATION","requested_by":"demo-agent","description":"Send a customer update."},"expected":{"outcome":"REQUIRE_APPROVAL","allowed_to_execute":false,"approval_required":true,"valid":true}},
-  {"case_id":"financial-action-needs-approval","input":{"action_id":"eval-004","action_type":"FINANCIAL_TRANSACTION","requested_by":"demo-agent","description":"Issue a synthetic refund."},"expected":{"outcome":"REQUIRE_APPROVAL","allowed_to_execute":false,"approval_required":true,"valid":true}},
-  {"case_id":"order-mutation-needs-approval","input":{"action_id":"eval-005","action_type":"ORDER_MUTATION","requested_by":"demo-agent","description":"Change a synthetic order status."},"expected":{"outcome":"REQUIRE_APPROVAL","allowed_to_execute":false,"approval_required":true,"valid":true}},
-  {"case_id":"inventory-mutation-needs-approval","input":{"action_id":"eval-006","action_type":"INVENTORY_MUTATION","requested_by":"demo-agent","description":"Adjust synthetic stock."},"expected":{"outcome":"REQUIRE_APPROVAL","allowed_to_execute":false,"approval_required":true,"valid":true}},
-  {"case_id":"unknown-action-manual-review","input":{"action_id":"eval-007","action_type":"UNSUPPORTED_ACTION","requested_by":"demo-agent","description":"Unsupported operation."},"expected":{"outcome":"MANUAL_REVIEW","allowed_to_execute":false,"approval_required":true,"valid":true}},
-  {"case_id":"blank-identifier-manual-review","input":{"action_id":"","action_type":"READ_ONLY","requested_by":"demo-agent","description":"Malformed synthetic proposal."},"expected":{"outcome":"MANUAL_REVIEW","allowed_to_execute":false,"approval_required":true,"valid":false}}
+  {
+    "case_id": "read-only-allowed",
+    "input": {
+      "action_id": "eval-001",
+      "action_type": "READ_ONLY",
+      "requested_by": "demo-agent",
+      "description": "Inspect synthetic order data."
+    },
+    "expected": {
+      "outcome": "ALLOW",
+      "allowed_to_execute": true,
+      "approval_required": false,
+      "valid": true
+    }
+  },
+  {
+    "case_id": "internal-draft-allowed",
+    "input": {
+      "action_id": "eval-002",
+      "action_type": "INTERNAL_DRAFT",
+      "requested_by": "demo-agent",
+      "description": "Prepare an internal summary."
+    },
+    "expected": {
+      "outcome": "ALLOW",
+      "allowed_to_execute": true,
+      "approval_required": false,
+      "valid": true
+    }
+  },
+  {
+    "case_id": "customer-message-needs-approval",
+    "input": {
+      "action_id": "eval-003",
+      "action_type": "CUSTOMER_COMMUNICATION",
+      "requested_by": "demo-agent",
+      "description": "Send a customer update."
+    },
+    "expected": {
+      "outcome": "REQUIRE_APPROVAL",
+      "allowed_to_execute": false,
+      "approval_required": true,
+      "valid": true
+    }
+  },
+  {
+    "case_id": "financial-action-needs-approval",
+    "input": {
+      "action_id": "eval-004",
+      "action_type": "FINANCIAL_TRANSACTION",
+      "requested_by": "demo-agent",
+      "description": "Issue a synthetic refund."
+    },
+    "expected": {
+      "outcome": "REQUIRE_APPROVAL",
+      "allowed_to_execute": false,
+      "approval_required": true,
+      "valid": true
+    }
+  },
+  {
+    "case_id": "order-mutation-needs-approval",
+    "input": {
+      "action_id": "eval-005",
+      "action_type": "ORDER_MUTATION",
+      "requested_by": "demo-agent",
+      "description": "Change a synthetic order status."
+    },
+    "expected": {
+      "outcome": "REQUIRE_APPROVAL",
+      "allowed_to_execute": false,
+      "approval_required": true,
+      "valid": true
+    }
+  },
+  {
+    "case_id": "inventory-mutation-needs-approval",
+    "input": {
+      "action_id": "eval-006",
+      "action_type": "INVENTORY_MUTATION",
+      "requested_by": "demo-agent",
+      "description": "Adjust synthetic stock."
+    },
+    "expected": {
+      "outcome": "REQUIRE_APPROVAL",
+      "allowed_to_execute": false,
+      "approval_required": true,
+      "valid": true
+    }
+  },
+  {
+    "case_id": "unknown-action-manual-review",
+    "input": {
+      "action_id": "eval-007",
+      "action_type": "UNSUPPORTED_ACTION",
+      "requested_by": "demo-agent",
+      "description": "Unsupported operation."
+    },
+    "expected": {
+      "outcome": "MANUAL_REVIEW",
+      "allowed_to_execute": false,
+      "approval_required": true,
+      "valid": true
+    }
+  },
+  {
+    "case_id": "blank-identifier-manual-review",
+    "input": {
+      "action_id": "",
+      "action_type": "READ_ONLY",
+      "requested_by": "demo-agent",
+      "description": "Malformed synthetic proposal."
+    },
+    "expected": {
+      "outcome": "MANUAL_REVIEW",
+      "allowed_to_execute": false,
+      "approval_required": true,
+      "valid": false
+    }
+  },
+  {
+    "case_id": "external-system-change-needs-approval",
+    "input": {
+      "action_id": "eval-009",
+      "action_type": "EXTERNAL_SYSTEM_CHANGE",
+      "requested_by": "demo-agent",
+      "description": "Change a synthetic external system setting."
+    },
+    "expected": {
+      "outcome": "REQUIRE_APPROVAL",
+      "allowed_to_execute": false,
+      "approval_required": true,
+      "valid": true
+    }
+  }
 ]
