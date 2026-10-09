@@ -61,8 +61,6 @@ python examples/reconciliation_demo.py
 python examples/governance_demo.py
 python examples/evaluate_agent_policy.py
 python examples/check_skill_contracts.py
-examples/policy-version-comparison.json
-examples/analyze_policy_impact.py
 python examples/replay_decisions.py
 python examples/analyze_policy_impact.py
 ```
