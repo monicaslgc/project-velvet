@@ -5,22 +5,35 @@
     {
       "contract_id": "GOV-001",
       "requirement": "Read-only inspection and internal draft preparation may be allowed within scope.",
-      "case_ids": ["read-only-allowed", "internal-draft-allowed"]
+      "case_ids": [
+        "read-only-allowed",
+        "internal-draft-allowed"
+      ]
     },
     {
       "contract_id": "GOV-002",
-      "requirement": "Customer communication and financial, order, or inventory changes require approval and are not autonomously executable.",
-      "case_ids": ["customer-message-needs-approval", "financial-action-needs-approval", "order-mutation-needs-approval", "inventory-mutation-needs-approval"]
+      "requirement": "Customer communication and financial, order, inventory, or external-system changes require approval and are not autonomously executable.",
+      "case_ids": [
+        "customer-message-needs-approval",
+        "financial-action-needs-approval",
+        "order-mutation-needs-approval",
+        "inventory-mutation-needs-approval",
+        "external-system-change-needs-approval"
+      ]
     },
     {
       "contract_id": "GOV-003",
       "requirement": "Unknown action types fail closed to manual review.",
-      "case_ids": ["unknown-action-manual-review"]
+      "case_ids": [
+        "unknown-action-manual-review"
+      ]
     },
     {
       "contract_id": "GOV-004",
       "requirement": "Malformed proposals fail closed to manual review.",
-      "case_ids": ["blank-identifier-manual-review"]
+      "case_ids": [
+        "blank-identifier-manual-review"
+      ]
     }
   ]
 }
