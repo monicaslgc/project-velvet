@@ -1,0 +1,17 @@
+{
+  "baseline_version": "governance-v1",
+  "candidate_version": "governance-v2-candidate",
+  "baseline": [
+    {"case_id": "read-only", "decision": {"outcome": "ALLOW", "allowed_to_execute": true, "approval_required": false, "valid": true, "reasons": ["Read-only action allowed."]}},
+    {"case_id": "customer-message", "decision": {"outcome": "REQUIRE_APPROVAL", "allowed_to_execute": false, "approval_required": true, "valid": true, "reasons": ["Customer communication needs approval."]}},
+    {"case_id": "financial-action", "decision": {"outcome": "REQUIRE_APPROVAL", "allowed_to_execute": false, "approval_required": true, "valid": true, "reasons": ["Financial transaction needs approval."]}},
+    {"case_id": "unknown-action", "decision": {"outcome": "MANUAL_REVIEW", "allowed_to_execute": false, "approval_required": true, "valid": true, "reasons": ["Unknown action fails closed."]}}
+  ],
+  "candidate": [
+    {"case_id": "read-only", "decision": {"outcome": "ALLOW", "allowed_to_execute": true, "approval_required": false, "valid": true, "reasons": ["Read-only action allowed."]}},
+    {"case_id": "customer-message", "decision": {"outcome": "ALLOW", "allowed_to_execute": true, "approval_required": false, "valid": true, "reasons": ["Candidate policy permits customer communication."]}},
+    {"case_id": "financial-action", "decision": {"outcome": "REQUIRE_APPROVAL", "allowed_to_execute": false, "approval_required": false, "valid": true, "reasons": ["Candidate policy no longer marks approval required."]}},
+    {"case_id": "unknown-action", "decision": {"outcome": "MANUAL_REVIEW", "allowed_to_execute": false, "approval_required": true, "valid": true, "reasons": ["Unknown action fails closed."]}},
+    {"case_id": "inventory-action", "decision": {"outcome": "REQUIRE_APPROVAL", "allowed_to_execute": false, "approval_required": true, "valid": true, "reasons": ["Inventory mutation needs approval."]}}
+  ]
+}
