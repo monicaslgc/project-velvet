@@ -1,0 +1,6 @@
+[
+  {"exception_id":"exc-1001","order_id":"ord-2001","category":"SHIPMENT_DELAY","age_hours":30,"customer_impact":true,"repeat_count":1,"financial_risk":false,"details":"Carrier milestone has not changed."},
+  {"exception_id":"exc-1002","order_id":"ord-2002","category":"INVENTORY_MISMATCH","age_hours":4,"customer_impact":false,"repeat_count":3,"financial_risk":false,"details":"Reserved quantity differs from available quantity."},
+  {"exception_id":"exc-1003","order_id":"ord-2003","category":"PAYMENT_DELAY","age_hours":1,"customer_impact":false,"repeat_count":1,"financial_risk":true,"details":"Payment provider response requires reconciliation."},
+  {"exception_id":"exc-1004","order_id":"ord-2004","category":"UNKNOWN_SOURCE_CODE","age_hours":3,"customer_impact":false,"repeat_count":1,"financial_risk":false,"details":"Unmapped source-system category."}
+]
