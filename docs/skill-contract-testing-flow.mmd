@@ -1,0 +1,10 @@
+flowchart TD
+    A[Governance skill requirements] --> B[Machine-readable contract]
+    C[Versioned evaluation cases] --> D[Collect case IDs]
+    B --> E[Validate contract mappings]
+    D --> E
+    E --> F{Any mapping issues?}
+    F -- Yes --> G[Fail check and report issues]
+    F -- No --> H[Pass traceability check]
+    H --> I[Run policy regression tests]
+    I --> J[Human review of policy changes]
