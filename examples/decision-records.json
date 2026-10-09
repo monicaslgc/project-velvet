@@ -1,0 +1,64 @@
+[
+  {
+    "record_id": "rec-001",
+    "case_id": "read-only-allowed",
+    "policy_version": "governance-demo-v1",
+    "input": {
+      "action_id": "replay-001",
+      "action_type": "READ_ONLY",
+      "requested_by": "demo-agent",
+      "description": "Inspect synthetic order data."
+    },
+    "recorded_decision": {
+      "outcome": "ALLOW",
+      "allowed_to_execute": true,
+      "approval_required": false,
+      "valid": true,
+      "reasons": [
+        "Action is limited to read-only inspection or internal draft preparation.",
+        "This decision authorizes only the scoped proposal; it does not execute it."
+      ]
+    }
+  },
+  {
+    "record_id": "rec-002",
+    "case_id": "customer-message-needs-approval",
+    "policy_version": "governance-demo-v1",
+    "input": {
+      "action_id": "replay-002",
+      "action_type": "CUSTOMER_COMMUNICATION",
+      "requested_by": "demo-agent",
+      "description": "Prepare a synthetic customer delivery update."
+    },
+    "recorded_decision": {
+      "outcome": "REQUIRE_APPROVAL",
+      "allowed_to_execute": false,
+      "approval_required": true,
+      "valid": true,
+      "reasons": [
+        "CUSTOMER_COMMUNICATION can create external or business-impacting side effects.",
+        "A human must approve the proposal before any separate execution system acts."
+      ]
+    }
+  },
+  {
+    "record_id": "rec-003",
+    "case_id": "unknown-action-manual-review",
+    "policy_version": "governance-demo-v1",
+    "input": {
+      "action_id": "replay-003",
+      "action_type": "UNSUPPORTED_ACTION",
+      "requested_by": "demo-agent",
+      "description": "Unsupported synthetic operation."
+    },
+    "recorded_decision": {
+      "outcome": "MANUAL_REVIEW",
+      "allowed_to_execute": false,
+      "approval_required": true,
+      "valid": true,
+      "reasons": [
+        "Unknown action type; the policy cannot safely infer its risk or permissions."
+      ]
+    }
+  }
+]
