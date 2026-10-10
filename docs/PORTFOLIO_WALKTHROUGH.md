@@ -1,6 +1,6 @@
 # Project Velvet: Portfolio Walkthrough
 
-This is a guided path for reviewers who want to understand the design decisions without reading every module first. For a consistent case-by-case format covering problem, input evidence, decision logic, expected result, tests, and limitations, see the [structured case-study walkthrough](CASE_STUDY_WALKTHROUGH.md) and [practical case-use examples](CASE_USE_EXAMPLES.md).
+This is a guided path for reviewers who want to understand the design decisions without reading every module first. For interview preparation, start with the [Interview Demo](INTERVIEW_DEMO.md), which includes a three-minute story, requirements, acceptance criteria, trade-offs, and pilot metrics to validate. For a consistent case-by-case format covering problem, input evidence, decision logic, expected result, tests, and limitations, see the [structured case-study walkthrough](CASE_STUDY_WALKTHROUGH.md) and [practical case-use examples](CASE_USE_EXAMPLES.md).
 
 ## Five-minute walkthrough
 
