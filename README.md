@@ -50,7 +50,7 @@ A read-only replay tool compares synthetic historical decision snapshots with th
 
 ### Demo 8: Policy Change Impact Analysis
 
-A deterministic snapshot comparator matches baseline and candidate decision records by stable case ID, then highlights newly allowed actions, relaxed approval requirements, removed regression cases, newly blocked actions, and other changes. It assigns illustrative risk labels and gives reviewers an explainable summary before a proposed policy release. Run `python examples/analyze_policy_impact.py`. It compares supplied snapshots rather than executing policy code and never deploys or approves a change.
+A deterministic snapshot comparator matches baseline and candidate decision records by stable case ID, then highlights newly allowed actions, relaxed approval requirements, removed regression cases, newly blocked actions, and other changes. Run `python examples/analyze_policy_impact.py` to inspect the hand-authored comparator fixture. For an executable comparison, run `python examples/evaluate_policy_regression.py`: it evaluates the same regression cases under the default policy and an explicit candidate policy, then compares those actual decisions. The candidate is intentionally unsafe training data; `python examples/evaluate_policy_regression.py --fail-on-high-risk` demonstrates a non-zero gate result. Neither script executes actions or deploys policy.
 
 ### Demo 9: Release Readiness Gating
 
@@ -97,7 +97,8 @@ These demos are in-memory evaluators. They do **not** persist an event ledger, m
 - [Logic guide](docs/LOGIC_GUIDE.md) — how each workflow makes decisions, what the statuses mean, and where the safety boundaries sit.
 - [Portfolio walkthrough](docs/PORTFOLIO_WALKTHROUGH.md) — a guided route through linked scenarios, plus discussion prompts for a technical review.
 - [Agent proposal output contract](docs/AGENT_PROPOSAL_CONTRACT.md) — strict structured-output validation separated from policy authorization.
-- [Policy versioning and change control](docs/POLICY_VERSIONING.md) — version labels, regression cases, snapshot comparison, and human release review.
+- [Policy versioning and change control](docs/POLICY_VERSIONING.md) — version labels, executable candidate evaluation, regression cases, and human release review.
+- [Practical case-use examples](docs/CASE_USE_EXAMPLES.md) — five synthetic operational stories, expected outcomes, and commands to run.
 - [Extending the demos](docs/EXTENDING_THE_DEMOS.md) — a practical checklist for adding rules, scenarios, regression tests, contracts, and diagrams consistently.
 - [Scenario catalog](datasets/SCENARIO_CATALOG.md) — stable scenario IDs and the behaviors each one is designed to demonstrate.
 
@@ -119,6 +120,7 @@ python examples/show_shipment_review.py
 python examples/check_skill_contracts.py
 python examples/replay_decisions.py
 python examples/analyze_policy_impact.py
+python examples/evaluate_policy_regression.py
 python examples/release_readiness_report.py
 python examples/run_operational_workflow.py
 python examples/validate_demo_dataset.py
