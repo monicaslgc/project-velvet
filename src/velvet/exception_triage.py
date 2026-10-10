@@ -45,7 +45,7 @@ ROUTING: dict[ExceptionCategory, tuple[str, str]] = {
     ExceptionCategory.ADDRESS_VALIDATION: ("customer_operations", "Validate address data and request customer clarification if required."),
 }
 
-def triage_exception(exception: OrderException) -> TriageDecision:
+def triage_exception(exception: OrderException | None) -> TriageDecision:
     """Classify and route an exception without mutating orders or invoking external systems.
 
     P1: financial risk, 3+ occurrences, or customer impact at 24+ hours.
