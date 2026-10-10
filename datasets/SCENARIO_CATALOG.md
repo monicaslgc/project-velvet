@@ -21,3 +21,7 @@ The canonical data pack uses stable scenario IDs so demos, tests, and walkthroug
 | `policy-relaxation-regression` | Candidate policy removes approval from risky actions | Flag risky policy drift before release | Evaluation, policy impact, release gate |
 
 IDs and outcomes are synthetic examples governed by this repository's current deterministic policies. They are not validated business rules for any real company.
+
+| `shipment-delay-customer-review` | Aged shipment exception, customer message proposal, and status mismatch are linked into one workflow | Aggregate triage, reconciliation, and approval requirements | Orchestration |
+| `unknown-exception-and-action` | Unmapped exception and unsupported action are linked into one workflow | Block automated progression when inputs cannot be safely classified | Orchestration |
+| `payment-risk-review` | Financial-risk exception is paired with a proposed refund | Require human review; never issue the refund | Orchestration |
