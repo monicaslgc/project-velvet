@@ -27,7 +27,7 @@ def test_integrated_report_aggregates_all_four_checks():
     assert report.checks["decision_replay"].status == "PASS"
     assert report.checks["policy_impact"].status == "FAIL"
     assert report.status == "BLOCKED"
-    assert report.ready_for_release is False
+    assert report.ready_for_human_review is False
 
 
 def test_regression_failure_blocks_release():
@@ -41,9 +41,10 @@ def test_regression_failure_blocks_release():
     )
     assert report.checks["regression"].status == "FAIL"
     assert report.status == "BLOCKED"
+    assert report.ready_for_human_review is False
 
 
-def test_safe_identical_policy_snapshots_allow_human_review_readiness():
+def test_safe_identical_policy_snapshots_allow_human_review_not_release_approval():
     comparison = load_json("examples/policy-version-comparison.json")
     comparison["candidate"] = comparison["baseline"]
     report = build_release_readiness_report(
@@ -53,7 +54,7 @@ def test_safe_identical_policy_snapshots_allow_human_review_readiness():
         comparison,
     )
     assert report.status == "READY_FOR_HUMAN_REVIEW"
-    assert report.ready_for_release is True
+    assert report.ready_for_human_review is True
 
 
 def test_replay_drift_blocks_release():
@@ -67,3 +68,4 @@ def test_replay_drift_blocks_release():
     )
     assert report.checks["decision_replay"].status == "FAIL"
     assert report.status == "BLOCKED"
+    assert report.ready_for_human_review is False
