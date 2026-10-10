@@ -97,6 +97,7 @@ These demos are in-memory evaluators. They do **not** persist an event ledger, m
 - [Logic guide](docs/LOGIC_GUIDE.md) — how each workflow makes decisions, what the statuses mean, and where the safety boundaries sit.
 - [Portfolio walkthrough](docs/PORTFOLIO_WALKTHROUGH.md) — a guided route through linked scenarios, plus discussion prompts for a technical review.
 - [Agent proposal output contract](docs/AGENT_PROPOSAL_CONTRACT.md) — strict structured-output validation separated from policy authorization.
+- [Policy versioning and change control](docs/POLICY_VERSIONING.md) — version labels, regression cases, snapshot comparison, and human release review.
 - [Extending the demos](docs/EXTENDING_THE_DEMOS.md) — a practical checklist for adding rules, scenarios, regression tests, contracts, and diagrams consistently.
 - [Scenario catalog](datasets/SCENARIO_CATALOG.md) — stable scenario IDs and the behaviors each one is designed to demonstrate.
 
