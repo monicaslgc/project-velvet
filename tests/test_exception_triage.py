@@ -6,6 +6,12 @@ def exception(**overrides):
     data.update(overrides)
     return OrderException(**data)
 
+def test_none_exception_fails_closed():
+    result = triage_exception(None)
+    assert result.assigned_team == "manual_review"
+    assert result.human_review_required is True
+    assert result.valid is False
+
 def test_low_risk_exception_routes_to_category_owner():
     result = triage_exception(exception())
     assert result.priority == Priority.P3
