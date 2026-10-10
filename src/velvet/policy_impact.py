@@ -49,10 +49,14 @@ def _index_snapshot(rows: Iterable[dict[str, Any]], label: str) -> dict[str, dic
         missing = [field for field in required if field not in decision]
         if missing:
             raise ValueError(f"{label} snapshot {case_id} missing decision fields: {', '.join(missing)}")
+        if not isinstance(decision["outcome"], str) or not decision["outcome"].strip():
+            raise ValueError(f"{label} snapshot {case_id} outcome must be a non-blank string")
         if not isinstance(decision["allowed_to_execute"], bool) or not isinstance(decision["approval_required"], bool):
             raise ValueError(f"{label} snapshot {case_id} has non-boolean permission fields")
-        if not isinstance(decision["reasons"], list):
-            raise ValueError(f"{label} snapshot {case_id} reasons must be a list")
+        if not isinstance(decision["valid"], bool):
+            raise ValueError(f"{label} snapshot {case_id} valid must be a boolean")
+        if not isinstance(decision["reasons"], list) or any(not isinstance(reason, str) for reason in decision["reasons"]):
+            raise ValueError(f"{label} snapshot {case_id} reasons must be a list of strings")
         indexed[case_id] = decision
     return indexed
 
