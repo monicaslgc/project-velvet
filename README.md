@@ -48,7 +48,7 @@ A deterministic orchestrator coordinates exception triage, optional read-only or
 
 The shared [synthetic operational demo pack](datasets/operational-demo-pack.json) provides linked fictional orders, lifecycle events, exceptions, reconciliation snapshot pairs, proposed agent actions, and policy-change examples. Stable scenario IDs in [the scenario catalog](datasets/SCENARIO_CATALOG.md) make it easier to reuse the same business case across several demos instead of inventing unrelated records for every module.
 
-Validate the pack with `python examples/validate_demo_dataset.py`; integrity checks are also included in the test suite. The data is synthetic, uses EUR minor units for monetary examples, and intentionally includes normal, anomalous, risky, and unknown cases. Existing demos retain focused fixtures where that keeps their quick-start commands simple.
+Run `python examples/run_shared_dataset.py` to validate the pack and evaluate its lifecycle, triage, reconciliation, and governance records through the existing deterministic policy modules. The runner prints a scenario-by-scenario decision summary and performs no writes or external actions. Validate the pack alone with `python examples/validate_demo_dataset.py`; integrity and expected-outcome checks are also included in the test suite. The data is synthetic, uses EUR minor units for monetary examples, and intentionally includes normal, anomalous, risky, and unknown cases. Existing demos retain focused fixtures where that keeps their quick-start commands simple.
 
 ## What this demonstrates
 - Explicit business rules before AI-assisted recommendations
@@ -80,6 +80,7 @@ python examples/analyze_policy_impact.py
 python examples/release_readiness_report.py
 python examples/run_operational_workflow.py
 python examples/validate_demo_dataset.py
+python examples/run_shared_dataset.py
 ```
 
 ## Repository map
