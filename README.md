@@ -2,11 +2,11 @@
 
 ![CI](https://github.com/monicaslgc/project-velvet/actions/workflows/tests.yml/badge.svg)
 
-**AI-ready operational workflows for professional beauty commerce — portfolio demonstrations.**
+**AI-ready operational workflows for professional beauty commerce.**
 
 Project Velvet explores how backend workflows can make order operations more reliable, explainable, and safe to automate. It uses synthetic data and generic business scenarios.
 
-**What reviewers can inspect**
+**Included capabilities**
 - Deterministic policy decisions with explicit reasons and fail-closed handling.
 - Human-approval boundaries for customer-facing, financial, inventory, and external actions.
 - Linked synthetic scenarios across triage, reconciliation, governance, and orchestration.
@@ -14,7 +14,7 @@ Project Velvet explores how backend workflows can make order operations more rel
 
 The project is backend-only: no UI, real customer data, live integrations, or automatic business actions.
 
-**Start here for an interview:** [3-minute flagship demo, requirements, acceptance criteria and pilot metrics](docs/INTERVIEW_DEMO.md). Then explore the [five-minute portfolio walkthrough](docs/PORTFOLIO_WALKTHROUGH.md), [structured case studies](docs/CASE_STUDY_WALKTHROUGH.md), [practical case-use examples](docs/CASE_USE_EXAMPLES.md), and [architecture overview](docs/architecture-overview.mmd).
+For a quick tour, start with the [workflow walkthrough](docs/WORKFLOW_WALKTHROUGH.md) and [shipment-review example](docs/SHIPMENT_REVIEW_WALKTHROUGH.md). The [case studies](docs/CASE_STUDY_WALKTHROUGH.md), [practical examples](docs/CASE_USE_EXAMPLES.md), and [architecture overview](docs/architecture-overview.mmd) cover the details.
 
 ## Demo 1: Order Lifecycle Consistency
 
@@ -97,7 +97,7 @@ These demos are in-memory evaluators. They do **not** persist an event ledger, m
 ## Documentation and walkthroughs
 
 - [Logic guide](docs/LOGIC_GUIDE.md) — how each workflow makes decisions, what the statuses mean, and where the safety boundaries sit.
-- [Portfolio walkthrough](docs/PORTFOLIO_WALKTHROUGH.md) — a guided route through linked scenarios, plus discussion prompts for a technical review.
+- [Workflow walkthrough](docs/WORKFLOW_WALKTHROUGH.md) — a guided route through linked scenarios and design decisions.
 - [Agent proposal output contract](docs/AGENT_PROPOSAL_CONTRACT.md) — strict structured-output validation separated from policy authorization.
 - [Governance boundary consistency](docs/GOVERNANCE_BOUNDARY_CONSISTENCY.md) — verifies the proposal validator and core policy agree on versioned decisions.
 - [Policy versioning and change control](docs/POLICY_VERSIONING.md) — version labels, executable candidate evaluation, regression cases, and human release review.
