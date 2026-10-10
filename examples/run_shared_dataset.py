@@ -1,4 +1,4 @@
-"""Execute the shared synthetic data pack across four demo policy modules."""
+"""Execute the shared synthetic data pack across five demo policy modules."""
 import json
 from pathlib import Path
 
