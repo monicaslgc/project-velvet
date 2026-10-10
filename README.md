@@ -44,6 +44,12 @@ A read-only report aggregates four checks into one explainable gate: regression 
 
 A deterministic orchestrator coordinates exception triage, optional read-only order reconciliation, and proposed-action governance into one explainable report. It aggregates the strictest applicable outcome: blocked for invalid/unknown inputs, human review required for elevated risk or side-effecting proposals, and ready for human review when no blocker is found. The sample intentionally requires human review because customer communication is a gated action. It never executes an action or changes an order. Run `python examples/run_operational_workflow.py`.
 
+## Shared demo data
+
+The shared [synthetic operational demo pack](datasets/operational-demo-pack.json) provides linked fictional orders, lifecycle events, exceptions, reconciliation snapshot pairs, proposed agent actions, and policy-change examples. Stable scenario IDs in [the scenario catalog](datasets/SCENARIO_CATALOG.md) make it easier to reuse the same business case across several demos instead of inventing unrelated records for every module.
+
+Validate the pack with `python examples/validate_demo_dataset.py`; integrity checks are also included in the test suite. The data is synthetic, uses EUR minor units for monetary examples, and intentionally includes normal, anomalous, risky, and unknown cases. Existing demos retain focused fixtures where that keeps their quick-start commands simple.
+
 ## What this demonstrates
 - Explicit business rules before AI-assisted recommendations
 - Explainable classification and routing
@@ -73,6 +79,7 @@ python examples/replay_decisions.py
 python examples/analyze_policy_impact.py
 python examples/release_readiness_report.py
 python examples/run_operational_workflow.py
+python examples/validate_demo_dataset.py
 ```
 
 ## Repository map
@@ -89,6 +96,11 @@ src/velvet/decision_replay.py
 src/velvet/policy_impact.py
 src/velvet/release_readiness.py
 src/velvet/operational_orchestrator.py
+datasets/operational-demo-pack.json
+datasets/SCENARIO_CATALOG.md
+datasets/README.md
+examples/validate_demo_dataset.py
+tests/test_demo_dataset.py
 contracts/ai-workflow-governance.json
 skills/operational-workflow-orchestration/SKILL.md
 docs/operational-workflow-orchestration-flow.mmd
