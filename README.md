@@ -72,8 +72,6 @@ python examples/check_skill_contracts.py
 python examples/replay_decisions.py
 python examples/analyze_policy_impact.py
 python examples/release_readiness_report.py
-examples/operational-workflow.json
-examples/run_operational_workflow.py
 python examples/run_operational_workflow.py
 ```
 
