@@ -23,5 +23,5 @@ jobs:
         run: python examples/evaluate_agent_proposals.py
       - name: Smoke-test end-to-end shipment walkthrough
         run: python examples/show_shipment_review.py
-      - name: Run tests
-        run: pytest
+      - name: Run tests with coverage
+        run: pytest --cov=velvet --cov-report=term-missing --cov-fail-under=75
