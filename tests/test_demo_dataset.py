@@ -31,12 +31,18 @@ def test_dataset_rejects_duplicate_identifiers_within_collection():
     assert any("duplicate primary identifiers" in error for error in validate_dataset(data))
 
 
-def test_shared_pack_runs_through_all_four_demo_policies():
+def test_dataset_rejects_broken_workflow_links():
+    data = load_pack()
+    data["workflow_scenarios"][0]["action_id"] = "act-missing"
+    assert any("unknown action_id" in error for error in validate_dataset(data))
+
+
+def test_shared_pack_runs_through_all_five_demo_policies():
     results = evaluate_shared_pack(load_pack())
     assert {row["demo"] for row in results} == {
-        "lifecycle", "triage", "reconciliation", "governance"
+        "lifecycle", "triage", "reconciliation", "governance", "orchestration"
     }
-    assert len(results) == 18
+    assert len(results) == 21
 
 
 def test_lifecycle_scenarios_reach_expected_decisions():
@@ -49,5 +55,12 @@ def test_lifecycle_scenarios_reach_expected_decisions():
 
 def test_unknown_records_fail_closed():
     results = evaluate_shared_pack(load_pack())
-    assert next(row for row in results if row["scenario_id"] == "unknown-exception-category")["detail"].find("manual_review") >= 0
+    assert "manual_review" in next(row for row in results if row["scenario_id"] == "unknown-exception-category")["detail"]
     assert next(row for row in results if row["scenario_id"] == "unknown-action-type")["decision"] == "MANUAL_REVIEW"
+
+
+def test_orchestration_scenarios_produce_review_and_blocked_outcomes():
+    results = {row["scenario_id"]: row["decision"] for row in evaluate_shared_pack(load_pack()) if row["demo"] == "orchestration"}
+    assert results["shipment-delay-customer-review"] == "HUMAN_REVIEW_REQUIRED"
+    assert results["unknown-exception-and-action"] == "BLOCKED"
+    assert results["payment-risk-review"] == "HUMAN_REVIEW_REQUIRED"
