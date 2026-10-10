@@ -1,0 +1,77 @@
+[
+  {
+    "case_id": "valid-read-only",
+    "proposal": {
+      "action_id": "contract-001",
+      "action_type": "READ_ONLY",
+      "requested_by": "demo-agent",
+      "description": "Inspect a synthetic order."
+    },
+    "expected": {
+      "schema_valid": true,
+      "outcome": "ALLOW",
+      "allowed_to_execute": true,
+      "approval_required": false
+    }
+  },
+  {
+    "case_id": "customer-message-requires-approval",
+    "proposal": {
+      "action_id": "contract-002",
+      "action_type": "CUSTOMER_COMMUNICATION",
+      "requested_by": "demo-agent",
+      "description": "Prepare a delivery update for review."
+    },
+    "expected": {
+      "schema_valid": true,
+      "outcome": "REQUIRE_APPROVAL",
+      "allowed_to_execute": false,
+      "approval_required": true
+    }
+  },
+  {
+    "case_id": "unknown-action-manual-review",
+    "proposal": {
+      "action_id": "contract-003",
+      "action_type": "UNRECOGNIZED_ACTION",
+      "requested_by": "demo-agent",
+      "description": "Unmapped action proposal."
+    },
+    "expected": {
+      "schema_valid": true,
+      "outcome": "MANUAL_REVIEW",
+      "allowed_to_execute": false,
+      "approval_required": true
+    }
+  },
+  {
+    "case_id": "missing-description-fails-closed",
+    "proposal": {
+      "action_id": "contract-004",
+      "action_type": "READ_ONLY",
+      "requested_by": "demo-agent"
+    },
+    "expected": {
+      "schema_valid": false,
+      "outcome": "MANUAL_REVIEW",
+      "allowed_to_execute": false,
+      "approval_required": true
+    }
+  },
+  {
+    "case_id": "unexpected-field-fails-closed",
+    "proposal": {
+      "action_id": "contract-005",
+      "action_type": "READ_ONLY",
+      "requested_by": "demo-agent",
+      "description": "Inspect a synthetic order.",
+      "execute_immediately": true
+    },
+    "expected": {
+      "schema_valid": false,
+      "outcome": "MANUAL_REVIEW",
+      "allowed_to_execute": false,
+      "approval_required": true
+    }
+  }
+]
