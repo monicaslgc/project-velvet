@@ -45,6 +45,7 @@ def test_unknown_category_fails_to_manual_review():
 
 @pytest.mark.parametrize("overrides", [
     {"age_hours": -1}, {"age_hours": True}, {"age_hours": float("nan")},
+    {"age_hours": float("inf")}, {"age_hours": float("-inf")}, {"repeat_count": 1.5},
     {"repeat_count": 0}, {"repeat_count": True}, {"customer_impact": "yes"},
 ])
 def test_invalid_payload_fails_closed(overrides):
