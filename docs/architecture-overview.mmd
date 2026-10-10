@@ -1,0 +1,29 @@
+flowchart TD
+    A[Untrusted event or agent proposal] --> B[Input contract and schema validation]
+    B -->|Malformed or missing data| M[Fail closed: BLOCKED or MANUAL_REVIEW]
+    B -->|Structurally valid| C[Deterministic domain policies]
+
+    C --> D[Order lifecycle consistency]
+    C --> E[Exception triage]
+    C --> F[Order reconciliation]
+    C --> G[Action governance]
+
+    D --> H[Operational orchestration]
+    E --> H
+    F --> H
+    G --> H
+
+    H --> I[Structured decision report and reasons]
+    I --> J{Policy outcome}
+    J -->|Invalid or unknown input| M
+    J -->|Elevated risk or side effect| R[Human review or approval required]
+    J -->|Checks passed| Q[READY_FOR_HUMAN_REVIEW]
+
+    M --> K[No business action executed]
+    R --> K
+    Q --> K
+    K --> L[Regression tests, replay, policy impact and release-readiness checks]
+
+    style M fill:#ffe8e8,stroke:#b42318,color:#7a271a
+    style R fill:#fff4d6,stroke:#b54708,color:#7a2e0e
+    style Q fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
