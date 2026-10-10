@@ -34,7 +34,7 @@ def _snapshot(record: dict[str, Any]) -> OrderSnapshot:
 
 
 def evaluate_shared_pack(data: dict[str, Any]) -> list[dict[str, str]]:
-    """Evaluate shared records across five demos without mutating source data."""
+    """Evaluate shared records across six demos without mutating source data."""
     results: list[dict[str, str]] = []
 
     for record in data.get("lifecycle_events", []):
@@ -94,6 +94,37 @@ def evaluate_shared_pack(data: dict[str, Any]) -> list[dict[str, str]]:
             "scenario_id": workflow["scenario_id"], "demo": "orchestration",
             "record_id": workflow["workflow_id"], "decision": report.status.value,
             "detail": "; ".join(report.reasons),
+        })
+
+    policy_groups: dict[str, list[dict[str, Any]]] = {}
+    for record in data.get("policy_change_scenarios", []):
+        policy_groups.setdefault(record["scenario_id"], []).append(record)
+    for scenario_id, records in sorted(policy_groups.items()):
+        baseline = [
+            {"case_id": record["case_id"], "decision": record["baseline"]}
+            for record in records
+        ]
+        candidate = [
+            {"case_id": record["case_id"], "decision": record["candidate"]}
+            for record in records
+        ]
+        report = compare_policy_snapshots(
+            baseline, candidate, "baseline-demo", "candidate-demo"
+        )
+        risk = (
+            "HIGH_RISK" if report.high_risk_count
+            else "REVIEW" if any(change.risk == "MEDIUM" for change in report.changes)
+            else "LOW_RISK"
+        )
+        detail = "; ".join(
+            f"{change.category}/{change.risk}" for change in report.changes
+        )
+        results.append({
+            "scenario_id": scenario_id,
+            "demo": "policy_impact",
+            "record_id": scenario_id,
+            "decision": risk,
+            "detail": detail,
         })
 
     for record in data.get("proposed_actions", []):
