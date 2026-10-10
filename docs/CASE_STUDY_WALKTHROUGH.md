@@ -1,6 +1,6 @@
 # Project Velvet: Case-study walkthrough
 
-This guide presents the portfolio as a set of reviewable engineering case studies. Each case uses the same structure: problem, synthetic evidence, decision logic, expected result, verification, and limitations.
+This guide presents the portfolio as a set of reviewable engineering case studies. Each case uses the same structure: problem, synthetic evidence, decision logic, expected result, verification, and limitations. For an interview-ready summary that also covers requirements, acceptance criteria, trade-offs, and proposed pilot metrics, see the [Interview Demo](INTERVIEW_DEMO.md).
 
 All records are fictional. These examples demonstrate deterministic backend logic, not a live commerce platform, a deployed AI agent, or measured business outcomes.
 
