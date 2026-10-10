@@ -40,6 +40,10 @@ A deterministic snapshot comparator matches baseline and candidate decision reco
 
 A read-only report aggregates four checks into one explainable gate: regression results, skill-contract traceability, historical decision replay, and baseline-versus-candidate policy impact. It reports per-check findings and returns a non-zero exit code unless the evidence reaches `READY_FOR_HUMAN_REVIEW`. The bundled candidate intentionally contains high-risk changes, so the example should be blocked. A passing report is not automatic release approval; human review remains mandatory. Run `python examples/release_readiness_report.py`.
 
+### Demo 10: Operational Workflow Orchestration
+
+A deterministic orchestrator coordinates exception triage, optional read-only order reconciliation, and proposed-action governance into one explainable report. It aggregates the strictest applicable outcome: blocked for invalid/unknown inputs, human review required for elevated risk or side-effecting proposals, and ready for human review when no blocker is found. The sample intentionally requires human review because customer communication is a gated action. It never executes an action or changes an order. Run `python examples/run_operational_workflow.py`.
+
 ## What this demonstrates
 - Explicit business rules before AI-assisted recommendations
 - Explainable classification and routing
@@ -68,6 +72,9 @@ python examples/check_skill_contracts.py
 python examples/replay_decisions.py
 python examples/analyze_policy_impact.py
 python examples/release_readiness_report.py
+examples/operational-workflow.json
+examples/run_operational_workflow.py
+python examples/run_operational_workflow.py
 ```
 
 ## Repository map
@@ -83,7 +90,11 @@ src/velvet/skill_contracts.py
 src/velvet/decision_replay.py
 src/velvet/policy_impact.py
 src/velvet/release_readiness.py
+src/velvet/operational_orchestrator.py
 contracts/ai-workflow-governance.json
+skills/operational-workflow-orchestration/SKILL.md
+docs/operational-workflow-orchestration-flow.mmd
+tests/test_operational_orchestrator.py
 examples/agent-evaluation-cases.json
 examples/decision-records.json
 examples/policy-version-comparison.json
