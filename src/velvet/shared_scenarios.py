@@ -10,6 +10,7 @@ from .workflow_governance import ProposedAction, evaluate_action
 from .operational_orchestrator import (
     OperationalWorkflowInput, run_operational_workflow,
 )
+from .policy_impact import compare_policy_snapshots
 
 
 def _exception(record: dict[str, Any]) -> OrderException:
