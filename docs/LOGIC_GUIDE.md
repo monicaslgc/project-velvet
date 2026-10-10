@@ -74,6 +74,8 @@ The policy distinguishes in-scope read-only/internal work from actions that requ
 
 The governance evaluator does not execute the proposed action. The word “AI” describes the workflow context; the policy decision itself is deterministic.
 
+The proposal boundary validates the exact four-field payload before delegating to this policy. `tests/test_governance_boundary_consistency.py` checks that both layers return the same outcome, execution permission, approval requirement, and validity for every versioned governance case. Permission-like extra fields are rejected rather than allowed to override the policy. See [Governance Boundary Consistency](GOVERNANCE_BOUNDARY_CONSISTENCY.md). This code-level parity test runs in CI; the release-readiness report does not expose it as a separate named check.
+
 ### Agent evaluation and regression
 
 **Question:** Does the current evaluator still return the expected results for known cases?
