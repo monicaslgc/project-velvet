@@ -34,6 +34,12 @@ A deterministic policy evaluates proposed agent actions against explicit autonom
 
 A reusable regression harness runs versioned synthetic cases against the deterministic workflow-governance evaluator, compares declared expected fields, reports pass/fail and pass rate, and exits with code 1 if a regression is detected. It covers allowed actions, approval-required actions, unknown actions, and malformed input. This evaluates conformance to encoded policy cases; it does not benchmark an LLM or prove general reasoning quality.
 
+### Agent proposal output contract
+
+The strict [agent proposal contract](src/velvet/agent_action_contract.py) validates untrusted proposed-action objects before applying the existing governance policy. It requires exactly four non-empty string fields, rejects missing or unexpected fields, and distinguishes schema validity from policy permission. Unknown action types are routed to manual review; side-effecting actions require approval. Run `python examples/evaluate_agent_proposals.py` to inspect synthetic passing and fail-closed cases.
+
+This is a model-independent boundary for evaluating outputs from an agent adapter; it does not call an LLM, test model reasoning, or execute proposals. The cases and unit tests check that malformed output and policy violations cannot be mistaken for permission.
+
 ### Demo 6: Skill Contract Testing
 
 A machine-readable contract links each in-scope AI workflow governance requirement to stable regression case IDs. A validator detects blank or duplicate contract IDs, missing mappings, duplicate evaluation IDs, and references to cases that no longer exist. Run `python examples/check_skill_contracts.py`. This checks mapping integrity only; it does not semantically prove that natural-language requirements are complete or fully tested. The initial contract covers the governance skill only.
@@ -102,6 +108,11 @@ python examples/triage_demo.py
 python examples/reconciliation_demo.py
 python examples/governance_demo.py
 python examples/evaluate_agent_policy.py
+examples/evaluate_agent_proposals.py
+examples/agent-proposal-contract-cases.json
+examples/show_shipment_review.py
+python examples/evaluate_agent_proposals.py
+python examples/show_shipment_review.py
 python examples/check_skill_contracts.py
 python examples/replay_decisions.py
 python examples/analyze_policy_impact.py
@@ -120,6 +131,7 @@ src/velvet/order_reconciliation.py
 src/velvet/audit_trail.py
 src/velvet/workflow_governance.py
 src/velvet/agent_evaluation.py
+src/velvet/agent_action_contract.py
 src/velvet/skill_contracts.py
 src/velvet/decision_replay.py
 src/velvet/policy_impact.py
