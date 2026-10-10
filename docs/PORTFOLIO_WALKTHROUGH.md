@@ -16,7 +16,7 @@ Use the shared scenario `stale-shipment-event`. The incoming event refers to an 
 
 Use `shipment-delay-aged-customer-impact`. Triage considers the category and declared context such as age and customer impact, then returns a priority and routing recommendation.
 
-**Talk about:** explainable prioritization, queue ownership, thresholds as policy rather than magic, and the danger of silently routing an unknown category.
+**Talk about:** explainable prioritization, queue ownership, thresholds as policy rather than magic, and the danger of silently routing an unknown category. Run `python examples/evaluate_triage_skill.py` to see the triage skill's versioned regression cases, including malformed input and instruction-like free text that must not override the policy.
 
 ### 3. Compare evidence before deciding what to do
 
