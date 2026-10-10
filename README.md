@@ -50,6 +50,17 @@ The shared [synthetic operational demo pack](datasets/operational-demo-pack.json
 
 Run `python examples/run_shared_dataset.py` to validate the pack and evaluate lifecycle, triage, reconciliation, governance, linked end-to-end orchestration, and policy-change impact scenarios through the existing deterministic policy modules. The runner prints a scenario-by-scenario decision summary and performs no writes or external actions. Validate the pack alone with `python examples/validate_demo_dataset.py`; integrity and expected-outcome checks are also included in the test suite. The data is synthetic, uses EUR minor units for monetary examples, and intentionally includes normal, anomalous, risky, and unknown cases. Existing demos retain focused fixtures where that keeps their quick-start commands simple.
 
+## Worked example: shipment delay requiring human review
+
+The shared scenario `shipment-delay-customer-review` shows how separate checks combine without giving an agent permission to act:
+
+1. **Triage:** fictional order `ord-4105` has a shipment-delay exception aged 30 hours with customer impact, so the exception is prioritized for operational attention.
+2. **Reconciliation:** the two synthetic snapshots disagree on status (`CONFIRMED` versus `SHIPPED`). The workflow reports the mismatch; it does not guess which system is correct.
+3. **Governance:** the proposed customer update is classified as customer communication, which requires human approval. No message is sent.
+4. **Orchestration:** the combined report carries the evidence and review requirement forward instead of treating one successful sub-check as permission to execute.
+
+Run `python examples/run_shared_dataset.py` to see the structured outcomes. The scenario is illustrative and synthetic; it demonstrates coordination and decision boundaries, not a live commerce integration.
+
 ## What this demonstrates
 - Explicit business rules before AI-assisted recommendations
 - Explainable classification and routing
