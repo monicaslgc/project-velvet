@@ -52,3 +52,62 @@ def test_unknown_action_fails_closed():
     report = run_operational_workflow(request(action_type="DO_ANYTHING"))
     assert report.status == WorkflowStatus.BLOCKED
     assert report.governance.allowed_to_execute is False
+
+
+def test_blocker_takes_precedence_over_high_priority_and_approval_required_action():
+    report = run_operational_workflow(request(
+        category="MYSTERY_EXCEPTION",
+        age=30,
+        impact=True,
+        action_type="CUSTOMER_COMMUNICATION",
+    ))
+    assert report.status == WorkflowStatus.BLOCKED
+    assert report.triage.assigned_team == "manual_review"
+    assert report.governance.approval_required is True
+    assert any("manual classification" in reason for reason in report.reasons)
+    assert any("requires human approval" in reason for reason in report.reasons)
+
+
+def test_high_severity_reconciliation_and_customer_communication_both_require_review():
+    expected, observed = snapshots(observed_status="SHIPPED")
+    report = run_operational_workflow(request(
+        expected=expected,
+        observed=observed,
+        action_type="CUSTOMER_COMMUNICATION",
+    ))
+    assert report.status == WorkflowStatus.HUMAN_REVIEW_REQUIRED
+    assert report.reconciliation is not None
+    assert report.reconciliation.human_review_required is True
+    assert report.governance.approval_required is True
+    assert any("reconciliation discrepancy" in reason for reason in report.reasons)
+    assert any("human approval" in reason for reason in report.reasons)
+
+
+def test_non_blocking_item_count_discrepancy_does_not_escalate_by_itself():
+    expected, _ = snapshots()
+    observed = OrderSnapshot("ord-1", "PROCESSING", 1299, "EUR", 3, "source-b")
+    report = run_operational_workflow(request(expected=expected, observed=observed))
+    assert report.status == WorkflowStatus.READY_FOR_HUMAN_REVIEW
+    assert report.reconciliation is not None
+    assert report.reconciliation.discrepancies[0].field == "item_count"
+    assert report.reconciliation.human_review_required is False
+
+
+def test_invalid_exception_payload_blocks_even_when_action_is_read_only():
+    malformed = OrderException("ex-1", "ord-1", "SHIPMENT_DELAY", float("nan"))
+    payload = OperationalWorkflowInput(
+        "wf-001", malformed,
+        ProposedAction("act-1", "READ_ONLY", "workflow-agent", "Inspect order context"),
+    )
+    report = run_operational_workflow(payload)
+    assert report.status == WorkflowStatus.BLOCKED
+    assert report.triage.valid is False
+    assert report.governance.allowed_to_execute is True
+    assert any("triage is invalid" in reason for reason in report.reasons)
+
+
+def test_blank_workflow_id_blocks_otherwise_valid_request():
+    report = run_operational_workflow(request(workflow_id="   "))
+    assert report.status == WorkflowStatus.BLOCKED
+    assert report.workflow_id == "   "
+    assert "Workflow envelope is invalid; automated progression is blocked." in report.reasons
