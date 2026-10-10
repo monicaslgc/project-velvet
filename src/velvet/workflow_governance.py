@@ -98,6 +98,24 @@ def evaluate_action(
             ("Required action fields are missing or malformed; autonomous execution is withheld.",),
             valid=False,
         )
+    if (
+        not isinstance(policy, GovernancePolicy)
+        or not isinstance(policy.version, str)
+        or not policy.version.strip()
+        or not isinstance(policy.approval_required, frozenset)
+        or not isinstance(policy.autonomous_allowed, frozenset)
+        or any(not isinstance(item, ActionType) for item in policy.approval_required)
+        or any(not isinstance(item, ActionType) for item in policy.autonomous_allowed)
+    ):
+        return GovernanceDecision(
+            action.action_id,
+            action.action_type,
+            GovernanceOutcome.MANUAL_REVIEW,
+            False,
+            True,
+            ("Governance policy is missing or malformed; autonomous permission cannot be established.",),
+            valid=False,
+        )
     try:
         action_type = ActionType(action.action_type)
     except ValueError:
