@@ -3,7 +3,7 @@
 This folder contains a small, linked, deterministic dataset that can be reused across Project Velvet demos. It is designed for portfolio walkthroughs and automated tests, not production use.
 
 ## Files
-- `operational-demo-pack.json`: canonical cross-demo fixture pack.
+- `operational-demo-pack.json`: canonical cross-demo fixture pack, including linked end-to-end workflow scenarios.
 - `SCENARIO_CATALOG.md`: scenario IDs, expected learning points, and which demos can use each scenario.
 
 ## Data principles
@@ -12,7 +12,7 @@ This folder contains a small, linked, deterministic dataset that can be reused a
 - Currency amounts use integer minor units (for EUR, cents).
 - The data is intentionally mixed: valid, stale, inconsistent, high-risk, and unknown cases.
 - Expected outcomes describe the current illustrative rules in this repository. They are not real-world operational policy.
-- The pack is a shared source of examples; individual demos may keep smaller focused fixtures for quick starts. When fixtures diverge, update the pack and document why.
+- The pack includes explicit workflow links that connect an exception, a proposed action, and an optional snapshot pair for the orchestrator demo. The pack is a shared source of examples; individual demos may keep smaller focused fixtures for quick starts. When fixtures diverge, update the pack and document why.
 
 ## Use
 Read the JSON with Python's standard library:
