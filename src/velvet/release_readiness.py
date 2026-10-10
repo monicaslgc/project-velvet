@@ -25,7 +25,11 @@ class ReleaseReadinessReport:
     checks: dict[str, CheckSummary]
 
     @property
-    def ready_for_release(self) -> bool:
+    def ready_for_human_review(self) -> bool:
+        """Return whether encoded checks pass and a person may review the candidate.
+
+        This does not approve, deploy, or authorize release of the candidate.
+        """
         return self.status == "READY_FOR_HUMAN_REVIEW"
 
 
