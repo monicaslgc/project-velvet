@@ -14,7 +14,7 @@ Project Velvet explores how backend workflows can make order operations more rel
 
 The project is backend-only: no UI, real customer data, live integrations, or automatic business actions.
 
-**Reviewer guides:** [five practical case-use examples](docs/CASE_USE_EXAMPLES.md) · [structured case-study walkthrough](docs/CASE_STUDY_WALKTHROUGH.md) · [five-minute portfolio walkthrough](docs/PORTFOLIO_WALKTHROUGH.md) · [architecture overview](docs/architecture-overview.mmd)
+**Start here for an interview:** [3-minute flagship demo, requirements, acceptance criteria and pilot metrics](docs/INTERVIEW_DEMO.md). Then explore the [five-minute portfolio walkthrough](docs/PORTFOLIO_WALKTHROUGH.md), [structured case studies](docs/CASE_STUDY_WALKTHROUGH.md), [practical case-use examples](docs/CASE_USE_EXAMPLES.md), and [architecture overview](docs/architecture-overview.mmd).
 
 ## Demo 1: Order Lifecycle Consistency
 
