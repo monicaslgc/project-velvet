@@ -1,0 +1,20 @@
+{
+  "workflow_id": "wf-demo-001",
+  "exception": {
+    "exception_id": "exc-100", "order_id": "ord-204", "category": "SHIPMENT_DELAY",
+    "age_hours": 14, "customer_impact": true, "repeat_count": 1,
+    "financial_risk": false, "details": "Carrier milestone has not advanced"
+  },
+  "proposed_action": {
+    "action_id": "act-100", "action_type": "CUSTOMER_COMMUNICATION",
+    "requested_by": "workflow-agent", "description": "Draft an update for an operations reviewer"
+  },
+  "expected_snapshot": {
+    "order_id": "ord-204", "status": "PROCESSING", "total_minor_units": 4999,
+    "currency": "EUR", "item_count": 2, "source": "order-service-snapshot"
+  },
+  "observed_snapshot": {
+    "order_id": "ord-204", "status": "PROCESSING", "total_minor_units": 4999,
+    "currency": "EUR", "item_count": 2, "source": "fulfilment-snapshot"
+  }
+}
