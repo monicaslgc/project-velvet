@@ -61,6 +61,13 @@ Run `python examples/run_shared_dataset.py` to validate the pack and evaluate li
 ### Scope boundaries
 These demos are in-memory evaluators. They do **not** persist an event ledger, mutate a real order, or trigger payment, cancellation, shipment, refund, stock adjustment, or customer communication. Duplicate detection in the lifecycle demo is only against IDs supplied in the current evaluation call; production-grade idempotency requires an atomic, durable event ledger. Version checking detects conflicts but does not resolve concurrency by itself. Exception priorities and thresholds are illustrative policy choices, not claims about any real platform's operating rules.
 
+## Documentation and walkthroughs
+
+- [Logic guide](docs/LOGIC_GUIDE.md) — how each workflow makes decisions, what the statuses mean, and where the safety boundaries sit.
+- [Portfolio walkthrough](docs/PORTFOLIO_WALKTHROUGH.md) — a guided route through linked scenarios, plus discussion prompts for a technical review.
+- [Extending the demos](docs/EXTENDING_THE_DEMOS.md) — a practical checklist for adding rules, scenarios, regression tests, contracts, and diagrams consistently.
+- [Scenario catalog](datasets/SCENARIO_CATALOG.md) — stable scenario IDs and the behaviors each one is designed to demonstrate.
+
 ## Quick start
 
 Requires Python 3.11+.
