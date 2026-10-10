@@ -42,7 +42,7 @@ APPROVAL_REQUIRED = {
     ActionType.EXTERNAL_SYSTEM_CHANGE,
 }
 
-def evaluate_action(action: ProposedAction) -> GovernanceDecision:
+def evaluate_action(action: ProposedAction | None) -> GovernanceDecision:
     """Evaluate a proposed action without executing it or calling external systems.
 
     Read-only inspection and internal draft preparation may proceed autonomously.
