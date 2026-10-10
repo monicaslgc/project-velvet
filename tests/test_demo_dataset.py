@@ -40,9 +40,9 @@ def test_dataset_rejects_broken_workflow_links():
 def test_shared_pack_runs_through_all_five_demo_policies():
     results = evaluate_shared_pack(load_pack())
     assert {row["demo"] for row in results} == {
-        "lifecycle", "triage", "reconciliation", "governance", "orchestration"
+        "lifecycle", "triage", "reconciliation", "governance", "orchestration", "policy_impact"
     }
-    assert len(results) == 21
+    assert len(results) == 22
 
 
 def test_lifecycle_scenarios_reach_expected_decisions():
@@ -64,3 +64,10 @@ def test_orchestration_scenarios_produce_review_and_blocked_outcomes():
     assert results["shipment-delay-customer-review"] == "HUMAN_REVIEW_REQUIRED"
     assert results["unknown-exception-and-action"] == "BLOCKED"
     assert results["payment-risk-review"] == "HUMAN_REVIEW_REQUIRED"
+
+
+def test_policy_relaxation_scenario_is_flagged_high_risk():
+    row = next(row for row in evaluate_shared_pack(load_pack()) if row["demo"] == "policy_impact")
+    assert row["decision"] == "HIGH_RISK"
+    assert "NEWLY_ALLOWED/HIGH" in row["detail"]
+    assert "APPROVAL_RELAXED/HIGH" in row["detail"]
