@@ -2,7 +2,7 @@
 
 **AI-ready operational workflows for professional beauty commerce — portfolio demonstrations.**
 
-Project Velvet explores how backend workflows can make order operations more reliable, explainable, and safe to automate. It uses synthetic data and generic business scenarios. It is not a WellaOne implementation and is not affiliated with or connected to any real commerce platform.
+Project Velvet explores how backend workflows can make order operations more reliable, explainable, and safe to automate. It uses synthetic data and generic business scenarios.
 
 ## Demo 1: Order Lifecycle Consistency
 
