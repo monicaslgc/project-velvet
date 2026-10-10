@@ -1,0 +1,14 @@
+flowchart TD
+    A[Load synthetic release evidence] --> B[Run regression evaluation]
+    B --> C[Validate skill contract mappings]
+    C --> D[Replay historical decision records]
+    D --> E[Compare baseline and candidate snapshots]
+    E --> F[Aggregate check results and findings]
+    F --> G{Any failed checks or HIGH-risk changes?}
+    G -- Yes --> H[BLOCKED]
+    G -- No --> I{Any MEDIUM-risk changes?}
+    I -- Yes --> J[REVIEW_REQUIRED]
+    I -- No --> K[READY_FOR_HUMAN_REVIEW]
+    H --> L[Human reviews evidence; no deployment]
+    J --> L
+    K --> L
