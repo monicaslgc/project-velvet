@@ -4,6 +4,8 @@ This is a guided path for reviewers who want to understand the design decisions 
 
 ## Five-minute walkthrough
 
+Start with [the architecture overview](architecture-overview.mmd) for the system boundaries, then follow the scenario below through the individual policies.
+
 ### 1. Start with a concrete operational risk
 
 Use the shared scenario `stale-shipment-event`. The incoming event refers to an older expected order version. The lifecycle evaluator checks the event against the known transition and version rules rather than accepting it just because the event looks plausible.
