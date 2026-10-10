@@ -28,9 +28,15 @@ Use `customer-message-review` or `inventory-adjustment-review`. Governance evalu
 
 **Talk about:** the difference between an AI-generated recommendation and permission to execute it; least privilege; explicit action types; and fail-closed defaults.
 
-### 5. Prove that the behavior remains reviewable
+### 5. Inspect the agent output boundary
 
-Run the agent evaluation, contract validation, replay, policy impact comparison, and release-readiness example.
+Run `python examples/evaluate_agent_proposals.py`. The proposal contract accepts only the declared four-field shape, rejects missing or unexpected fields, then applies the deterministic governance policy. Compare schema validity with the policy outcome: an unknown action can be structurally well-formed and still require manual review.
+
+**Talk about:** structured outputs, strict schemas, separation of syntax from authorization, fail-closed behavior, and why validating an agent proposal is not the same as trusting or executing it.
+
+### 6. Prove that the behavior remains reviewable
+
+Run the agent evaluation, proposal contract checks, skill-contract validation, replay, policy impact comparison, and release-readiness example.
 
 **Talk about:** how stable IDs connect requirements to tests; how a changed decision can be detected; and why “all tests pass” is not equivalent to “the policy is correct.”
 
@@ -40,7 +46,7 @@ The shared scenario `shipment-delay-customer-review` links an aged shipment exce
 
 This is useful because a single business situation often crosses team boundaries. The point is not to collapse all policies into one giant rule; it is to keep each decision understandable and combine their results at a coordination layer.
 
-Use `python examples/run_shared_dataset.py` to inspect the shared runner's outputs. Use `docs/operational-workflow-orchestration-flow.mmd` for the orchestration diagram.
+Use `python examples/show_shipment_review.py` for a structured, end-to-end output from the linked shipment-delay fixture. It invokes the existing modules and checks that its orchestration status agrees with the shared runner. Use `python examples/run_shared_dataset.py` to inspect the full shared runner's outputs. Use `docs/operational-workflow-orchestration-flow.mmd` for the orchestration diagram.
 
 ## Discussion prompts for a technical review
 
