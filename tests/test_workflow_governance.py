@@ -59,3 +59,28 @@ def test_decision_is_explanatory_and_input_is_not_mutated():
     assert proposal == original
     assert result.reasons
     assert "human" in " ".join(result.reasons).lower()
+
+def test_each_required_action_field_rejects_non_string_values():
+    for field in ("action_id", "action_type", "requested_by", "description"):
+        values = {"action_id": "act-001", "action_type": "READ_ONLY", "requested_by": "agent", "description": "inspect"}
+        values[field] = 123
+        result = evaluate_action(ProposedAction(**values))
+        assert result.valid is False, field
+        assert result.outcome == GovernanceOutcome.MANUAL_REVIEW, field
+        assert result.allowed_to_execute is False, field
+        assert result.approval_required is True, field
+
+
+def test_whitespace_padded_action_type_is_not_normalized_to_permission():
+    result = evaluate_action(action(" READ_ONLY "))
+    assert result.outcome == GovernanceOutcome.MANUAL_REVIEW
+    assert result.allowed_to_execute is False
+    assert result.approval_required is True
+
+
+def test_unknown_action_type_with_case_or_whitespace_variants_fails_closed():
+    for value in ("read_only", "READ_ONLY ", " READ_ONLY"):
+        result = evaluate_action(action(value))
+        assert result.outcome == GovernanceOutcome.MANUAL_REVIEW, value
+        assert result.allowed_to_execute is False, value
+
