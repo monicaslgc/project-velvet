@@ -36,6 +36,10 @@ A read-only replay tool compares synthetic historical decision snapshots with th
 
 A deterministic snapshot comparator matches baseline and candidate decision records by stable case ID, then highlights newly allowed actions, relaxed approval requirements, removed regression cases, newly blocked actions, and other changes. It assigns illustrative risk labels and gives reviewers an explainable summary before a proposed policy release. Run `python examples/analyze_policy_impact.py`. It compares supplied snapshots rather than executing policy code and never deploys or approves a change.
 
+### Demo 9: Release Readiness Gating
+
+A read-only report aggregates four checks into one explainable gate: regression results, skill-contract traceability, historical decision replay, and baseline-versus-candidate policy impact. It reports per-check findings and returns a non-zero exit code unless the evidence reaches `READY_FOR_HUMAN_REVIEW`. The bundled candidate intentionally contains high-risk changes, so the example should be blocked. A passing report is not automatic release approval; human review remains mandatory. Run `python examples/release_readiness_report.py`.
+
 ## What this demonstrates
 - Explicit business rules before AI-assisted recommendations
 - Explainable classification and routing
@@ -63,6 +67,7 @@ python examples/evaluate_agent_policy.py
 python examples/check_skill_contracts.py
 python examples/replay_decisions.py
 python examples/analyze_policy_impact.py
+python examples/release_readiness_report.py
 ```
 
 ## Repository map
@@ -77,8 +82,13 @@ src/velvet/agent_evaluation.py
 src/velvet/skill_contracts.py
 src/velvet/decision_replay.py
 src/velvet/policy_impact.py
+src/velvet/release_readiness.py
 contracts/ai-workflow-governance.json
 examples/agent-evaluation-cases.json
+examples/decision-records.json
+examples/policy-version-comparison.json
+examples/analyze_policy_impact.py
+examples/release_readiness_report.py
 examples/check_skill_contracts.py
 examples/evaluate_agent_policy.py
 examples/orders.json
@@ -99,6 +109,7 @@ docs/agent-evaluation-regression-flow.mmd
 docs/skill-contract-testing-flow.mmd
 docs/decision-replay-observability-flow.mmd
 docs/policy-change-impact-analysis-flow.mmd
+docs/release-readiness-gating-flow.mmd
 skills/order-lifecycle-consistency/SKILL.md
 skills/order-exception-triage/SKILL.md
 skills/order-reconciliation/SKILL.md
@@ -108,6 +119,7 @@ skills/agent-evaluation-regression/SKILL.md
 skills/skill-contract-testing/SKILL.md
 skills/decision-replay-observability/SKILL.md
 skills/policy-change-impact-analysis/SKILL.md
+skills/release-readiness-gating/SKILL.md
 tests/test_order_lifecycle.py
 tests/test_exception_triage.py
 tests/test_order_reconciliation.py
@@ -117,6 +129,7 @@ tests/test_agent_evaluation.py
 tests/test_skill_contracts.py
 tests/test_decision_replay.py
 tests/test_policy_impact.py
+tests/test_release_readiness.py
 .github/workflows/tests.yml
 ```
 
@@ -176,3 +189,7 @@ All examples use synthetic data and document assumptions, autonomy boundaries, a
 ## Policy change impact analysis
 
 Run `python examples/analyze_policy_impact.py` to compare the synthetic baseline and candidate snapshots. The report flags newly allowed actions and relaxed approval controls as HIGH risk, and removed regression cases as HIGH risk because test coverage may have been lost. Risk labels are explicit demo heuristics; a human must inspect the actual policy diff, confirm domain intent, and decide whether release is appropriate. The tool does not run or deploy policy code.
+
+## Release readiness gate
+
+Run `python examples/release_readiness_report.py` to combine regression evaluation, governance contract mapping, decision replay, and policy snapshot comparison. `BLOCKED` means a hard check failed or a HIGH-risk change was found; `REVIEW_REQUIRED` means medium-risk changes need inspection; `READY_FOR_HUMAN_REVIEW` means these encoded checks passed and no changes were classified above LOW risk. The last status is deliberately not called release-approved. The included candidate is intentionally unsafe and should return `BLOCKED` with a non-zero exit code. All inputs are synthetic, and the gate does not deploy policy or execute business actions.
