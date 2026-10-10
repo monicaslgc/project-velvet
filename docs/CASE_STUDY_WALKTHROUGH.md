@@ -1,6 +1,6 @@
 # Project Velvet: Case-study walkthrough
 
-This guide presents the portfolio as a set of reviewable engineering case studies. Each case uses the same structure: problem, synthetic evidence, decision logic, expected result, verification, and limitations. For an interview-ready summary that also covers requirements, acceptance criteria, trade-offs, and proposed pilot metrics, see the [Interview Demo](INTERVIEW_DEMO.md).
+This guide presents a set of engineering case studies. Each case uses the same structure: problem, synthetic evidence, decision logic, expected result, verification, and limitations.
 
 All records are fictional. These examples demonstrate deterministic backend logic, not a live commerce platform, a deployed AI agent, or measured business outcomes.
 
@@ -175,9 +175,9 @@ pytest tests/test_agent_action_contract.py tests/test_workflow_governance.py
 
 **Limitation:** this tests sample structured payloads; it does not call an LLM or measure model quality.
 
-## Reviewer checklist
+## Case checklist
 
-For each case, a reviewer should be able to answer:
+For each case, each case should make clear:
 
 - What exact synthetic input triggered the decision?
 - Which deterministic rule or policy produced the outcome?
