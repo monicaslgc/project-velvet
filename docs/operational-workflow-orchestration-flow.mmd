@@ -1,0 +1,15 @@
+flowchart TD
+    A[Workflow request] --> B{Envelope valid?}
+    B -- No --> X[BLOCKED]
+    B -- Yes --> C[Exception triage]
+    C --> D[Optional snapshot reconciliation]
+    D --> E[Action governance]
+    E --> F[Aggregate findings and reasons]
+    F --> G{Any invalid or unknown input?}
+    G -- Yes --> X
+    G -- No --> H{Human review needed?}
+    H -- Yes --> I[HUMAN_REVIEW_REQUIRED]
+    H -- No --> J[READY_FOR_HUMAN_REVIEW]
+    X --> K[Return report; no side effects]
+    I --> K
+    J --> K
