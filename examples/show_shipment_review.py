@@ -45,7 +45,16 @@ def main() -> int:
         if row["scenario_id"] == "shipment-delay-customer-review"
     )
 
-    exception = OrderException(**exception_record)
+    exception = OrderException(
+        exception_id=exception_record["exception_id"],
+        order_id=exception_record["order_id"],
+        category=exception_record["category"],
+        age_hours=exception_record["age_hours"],
+        customer_impact=exception_record["customer_impact"],
+        repeat_count=exception_record["repeat_count"],
+        financial_risk=exception_record["financial_risk"],
+        details=exception_record["details"],
+    )
     action = ProposedAction(
         action_id=action_record["action_id"],
         action_type=action_record["action_type"],
