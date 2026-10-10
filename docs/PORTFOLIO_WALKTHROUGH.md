@@ -34,7 +34,7 @@ Use `customer-message-review` or `inventory-adjustment-review`. Governance evalu
 
 Run `python examples/evaluate_agent_proposals.py`. The proposal contract accepts only the declared four-field shape, rejects missing or unexpected fields, then applies the deterministic governance policy. Compare schema validity with the policy outcome: an unknown action can be structurally well-formed and still require manual review.
 
-**Talk about:** structured outputs, strict schemas, separation of syntax from authorization, fail-closed behavior, and why validating an agent proposal is not the same as trusting or executing it.
+**Talk about:** structured outputs, strict schemas, separation of syntax from authorization, fail-closed behavior, and why validating an agent proposal is not the same as trusting or executing it. Then run `pytest tests/test_governance_boundary_consistency.py` to show that the proposal boundary and core policy agree on the versioned cases; see the [consistency note](GOVERNANCE_BOUNDARY_CONSISTENCY.md).
 
 ### 6. Prove that the behavior remains reviewable
 
