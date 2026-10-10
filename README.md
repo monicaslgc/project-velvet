@@ -22,7 +22,7 @@ A deterministic policy engine evaluates order events before any downstream syste
 
 ## Demo 2: Order Exception Triage
 
-A deterministic triage policy classifies synthetic exceptions, assigns a priority, routes each known category to a responsible operational team, explains the evidence behind the decision, and flags cases for human review. Unknown categories and malformed payloads fail closed to manual review.
+A deterministic triage policy classifies synthetic exceptions, assigns a priority, routes each known category to a responsible operational team, explains the evidence behind the decision, and flags cases for human review. Unknown categories and malformed payloads fail closed to manual review. The [triage skill evaluation pack](examples/triage-skill-evaluation-cases.json) tests routine routing, escalation thresholds, unknown categories, malformed values, and instruction-like free text; run `python examples/evaluate_triage_skill.py`. It checks conformance to encoded deterministic policy, not LLM reasoning quality.
 
 ## Demo 3: Order Reconciliation
 
@@ -118,6 +118,7 @@ python examples/reconciliation_demo.py
 python examples/governance_demo.py
 python examples/evaluate_agent_policy.py
 python examples/evaluate_agent_proposals.py
+python examples/evaluate_triage_skill.py
 python examples/show_shipment_review.py
 python examples/check_skill_contracts.py
 python examples/replay_decisions.py
