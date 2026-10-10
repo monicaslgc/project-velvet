@@ -68,3 +68,43 @@ def test_non_object_payload_fails_closed():
     assert report.schema_valid is False
     assert report.decision.outcome == GovernanceOutcome.MANUAL_REVIEW
     assert report.decision.allowed_to_execute is False
+
+def test_each_required_field_rejects_non_string_values():
+    for field in ("action_id", "action_type", "requested_by", "description"):
+        report = evaluate_agent_proposal(proposal(**{field: 123}))
+        assert report.schema_valid is False, field
+        assert report.decision.outcome == GovernanceOutcome.MANUAL_REVIEW, field
+        assert report.decision.allowed_to_execute is False, field
+        assert report.decision.valid is False, field
+
+
+def test_each_required_field_rejects_empty_strings():
+    for field in ("action_id", "action_type", "requested_by", "description"):
+        report = evaluate_agent_proposal(proposal(**{field: ""}))
+        assert report.schema_valid is False, field
+        assert report.decision.allowed_to_execute is False, field
+
+
+def test_case_changed_action_type_does_not_get_normalized_to_permission():
+    report = evaluate_agent_proposal(proposal(action_type="read_only"))
+    assert report.schema_valid is True
+    assert report.decision.outcome == GovernanceOutcome.MANUAL_REVIEW
+    assert report.decision.allowed_to_execute is False
+
+
+def test_extra_field_cannot_override_governance_with_permission_like_values():
+    report = evaluate_agent_proposal(
+        proposal(action_type="ORDER_MUTATION", approval_granted=True, allowed_to_execute=True)
+    )
+    assert report.schema_valid is False
+    assert report.decision.outcome == GovernanceOutcome.MANUAL_REVIEW
+    assert report.decision.allowed_to_execute is False
+    assert report.decision.approval_required is True
+
+
+def test_evaluation_does_not_mutate_input_payload():
+    payload = proposal(action_type="CUSTOMER_COMMUNICATION")
+    original = payload.copy()
+    evaluate_agent_proposal(payload)
+    assert payload == original
+
