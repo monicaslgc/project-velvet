@@ -6,6 +6,12 @@ def snapshot(**overrides):
     values.update(overrides)
     return OrderSnapshot(**values)
 
+def test_none_snapshots_fail_closed():
+    result = reconcile_orders(None, None)
+    assert result.valid is False
+    assert result.matched is False
+    assert result.human_review_required is True
+
 def test_matching_snapshots_have_no_discrepancies():
     result = reconcile_orders(snapshot(), snapshot(source="warehouse_feed"))
     assert result.matched is True
