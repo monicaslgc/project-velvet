@@ -3,6 +3,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import StrEnum
 
+# Bump this identifier when the governance rules or their meaning changes.
+# Snapshot comparison uses explicit fixture versions; this constant labels the
+# deterministic evaluator implemented in this module.
+POLICY_VERSION = "governance-v1"
+
+
 class ActionType(StrEnum):
     READ_ONLY = "READ_ONLY"
     INTERNAL_DRAFT = "INTERNAL_DRAFT"
