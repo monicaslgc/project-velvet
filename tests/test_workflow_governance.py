@@ -1,5 +1,5 @@
 from velvet.workflow_governance import (
-    ActionType, GovernanceOutcome, ProposedAction, evaluate_action,
+    ActionType, GovernanceOutcome, POLICY_VERSION, ProposedAction, evaluate_action,
 )
 
 def action(action_type: str) -> ProposedAction:
@@ -83,4 +83,7 @@ def test_unknown_action_type_with_case_or_whitespace_variants_fails_closed():
         result = evaluate_action(action(value))
         assert result.outcome == GovernanceOutcome.MANUAL_REVIEW, value
         assert result.allowed_to_execute is False, value
+
+def test_governance_policy_has_explicit_version_identifier():
+    assert POLICY_VERSION == "governance-v1"
 
