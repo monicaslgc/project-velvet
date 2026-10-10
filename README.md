@@ -77,6 +77,10 @@ The shared scenario `shipment-delay-customer-review` shows how separate checks c
 
 Run `python examples/run_shared_dataset.py` to see the structured outcomes. The scenario is illustrative and synthetic; it demonstrates coordination and decision boundaries, not a live commerce integration.
 
+## Testing and quality gates
+
+CI runs the unit tests with `pytest-cov` and requires at least **75% overall statement coverage** for the `velvet` package. The report also lists uncovered lines so gaps can be targeted deliberately. Coverage is a signal about which code paths tests exercise; it does not prove that the scenarios are complete, the policy is correct, or production behavior is safe.
+
 ## What this demonstrates
 - Explicit business rules before AI-assisted recommendations
 - Explainable classification and routing
