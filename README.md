@@ -109,9 +109,6 @@ python examples/triage_demo.py
 python examples/reconciliation_demo.py
 python examples/governance_demo.py
 python examples/evaluate_agent_policy.py
-examples/evaluate_agent_proposals.py
-examples/agent-proposal-contract-cases.json
-examples/show_shipment_review.py
 python examples/evaluate_agent_proposals.py
 python examples/show_shipment_review.py
 python examples/check_skill_contracts.py
@@ -146,6 +143,7 @@ tests/test_demo_dataset.py
 contracts/ai-workflow-governance.json
 skills/operational-workflow-orchestration/SKILL.md
 docs/operational-workflow-orchestration-flow.mmd
+docs/AGENT_PROPOSAL_CONTRACT.md
 tests/test_operational_orchestrator.py
 examples/agent-evaluation-cases.json
 examples/decision-records.json
@@ -154,6 +152,9 @@ examples/analyze_policy_impact.py
 examples/release_readiness_report.py
 examples/check_skill_contracts.py
 examples/evaluate_agent_policy.py
+examples/evaluate_agent_proposals.py
+examples/agent-proposal-contract-cases.json
+examples/show_shipment_review.py
 examples/orders.json
 examples/exceptions.json
 examples/run_demo.py
