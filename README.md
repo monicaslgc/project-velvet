@@ -1,8 +1,18 @@
 # Project Velvet
 
+![CI](https://github.com/monicaslgc/project-velvet/actions/workflows/tests.yml/badge.svg)
+
 **AI-ready operational workflows for professional beauty commerce — portfolio demonstrations.**
 
 Project Velvet explores how backend workflows can make order operations more reliable, explainable, and safe to automate. It uses synthetic data and generic business scenarios.
+
+**What reviewers can inspect**
+- Deterministic policy decisions with explicit reasons and fail-closed handling.
+- Human-approval boundaries for customer-facing, financial, inventory, and external actions.
+- Linked synthetic scenarios across triage, reconciliation, governance, and orchestration.
+- Regression tests, skill contracts, decision replay, policy-change analysis, and a release-review gate.
+
+The project is backend-only: no UI, real customer data, live integrations, or automatic business actions.
 
 ## Demo 1: Order Lifecycle Consistency
 
