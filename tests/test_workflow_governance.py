@@ -1,5 +1,5 @@
 from velvet.workflow_governance import (
-    ActionType, GovernanceOutcome, POLICY_VERSION, ProposedAction, evaluate_action,
+    ActionType, GovernanceOutcome, GovernancePolicy, POLICY_VERSION, ProposedAction, evaluate_action,
 )
 
 def action(action_type: str) -> ProposedAction:
@@ -87,3 +87,37 @@ def test_unknown_action_type_with_case_or_whitespace_variants_fails_closed():
 def test_governance_policy_has_explicit_version_identifier():
     assert POLICY_VERSION == "governance-v1"
 
+
+
+
+def test_custom_policy_can_be_compared_without_changing_default_policy():
+    candidate = GovernancePolicy(
+        version="candidate-test",
+        approval_required=frozenset({ActionType.ORDER_MUTATION}),
+        autonomous_allowed=frozenset({
+            ActionType.READ_ONLY,
+            ActionType.INTERNAL_DRAFT,
+            ActionType.CUSTOMER_COMMUNICATION,
+        }),
+    )
+    proposal = action(ActionType.CUSTOMER_COMMUNICATION.value)
+    baseline_result = evaluate_action(proposal)
+    candidate_result = evaluate_action(proposal, candidate)
+    assert baseline_result.outcome == GovernanceOutcome.REQUIRE_APPROVAL
+    assert baseline_result.allowed_to_execute is False
+    assert candidate_result.outcome == GovernanceOutcome.ALLOW
+    assert candidate_result.allowed_to_execute is True
+    # Evaluating a candidate does not mutate the module's default policy.
+    assert evaluate_action(proposal).outcome == GovernanceOutcome.REQUIRE_APPROVAL
+
+
+def test_known_action_missing_from_both_policy_sets_fails_closed():
+    incomplete = GovernancePolicy(
+        version="incomplete-test",
+        approval_required=frozenset(),
+        autonomous_allowed=frozenset({ActionType.READ_ONLY}),
+    )
+    result = evaluate_action(action(ActionType.FINANCIAL_TRANSACTION.value), incomplete)
+    assert result.outcome == GovernanceOutcome.MANUAL_REVIEW
+    assert result.allowed_to_execute is False
+    assert result.approval_required is True
