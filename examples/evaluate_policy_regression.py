@@ -10,6 +10,7 @@ from typing import Any
 from velvet.policy_impact import compare_policy_snapshots
 from velvet.workflow_governance import (
     ActionType,
+    DEFAULT_POLICY,
     GovernancePolicy,
     POLICY_VERSION,
     ProposedAction,
@@ -87,8 +88,8 @@ def main() -> int:
             raise ValueError("evaluation cases must be a non-empty JSON array")
         baseline = GovernancePolicy(
             version=POLICY_VERSION,
-            approval_required=__import__("velvet.workflow_governance", fromlist=["DEFAULT_POLICY"]).DEFAULT_POLICY.approval_required,
-            autonomous_allowed=__import__("velvet.workflow_governance", fromlist=["DEFAULT_POLICY"]).DEFAULT_POLICY.autonomous_allowed,
+            approval_required=DEFAULT_POLICY.approval_required,
+            autonomous_allowed=DEFAULT_POLICY.autonomous_allowed,
         )
         before = decision_snapshot(cases, baseline)
         after = decision_snapshot(cases, candidate)
