@@ -38,6 +38,13 @@ def test_unknown_action_type_fails_closed():
     assert result.allowed_to_execute is False
     assert result.approval_required is True
 
+def test_none_action_fails_closed():
+    result = evaluate_action(None)
+    assert result.outcome == GovernanceOutcome.MANUAL_REVIEW
+    assert result.allowed_to_execute is False
+    assert result.approval_required is True
+    assert result.valid is False
+
 def test_malformed_payload_fails_closed():
     result = evaluate_action(ProposedAction("", "READ_ONLY", "agent", "inspect"))
     assert result.outcome == GovernanceOutcome.MANUAL_REVIEW
