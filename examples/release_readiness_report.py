@@ -34,8 +34,11 @@ def main() -> int:
         print(f"\n[{check.status}] {name}: {check.summary}")
         for detail in check.details:
             print(f"  - {detail}")
-    print("\nThis report is a read-only gate over synthetic evidence. Human approval is still required; no action or deployment is performed.")
-    return 0 if report.ready_for_release else 1
+    print(
+        "\nThis report is a read-only gate over synthetic evidence. "
+        "Human approval is still required; no action or deployment is performed."
+    )
+    return 0 if report.ready_for_human_review else 1
 
 
 if __name__ == "__main__":
