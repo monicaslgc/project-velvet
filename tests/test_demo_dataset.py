@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from examples.validate_demo_dataset import validate_dataset
+from velvet.demo_dataset import validate_dataset
 
 def load_pack():
     return json.loads(Path("datasets/operational-demo-pack.json").read_text(encoding="utf-8"))
