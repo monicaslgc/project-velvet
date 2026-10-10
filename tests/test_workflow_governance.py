@@ -121,3 +121,48 @@ def test_known_action_missing_from_both_policy_sets_fails_closed():
     assert result.outcome == GovernanceOutcome.MANUAL_REVIEW
     assert result.allowed_to_execute is False
     assert result.approval_required is True
+
+
+def test_missing_policy_fails_closed():
+    result = evaluate_action(action("READ_ONLY"), None)
+    assert result.outcome == GovernanceOutcome.MANUAL_REVIEW
+    assert result.allowed_to_execute is False
+    assert result.approval_required is True
+    assert result.valid is False
+
+
+def test_blank_policy_version_fails_closed():
+    malformed = GovernancePolicy(" ", frozenset({ActionType.ORDER_MUTATION}), frozenset({ActionType.READ_ONLY}))
+    result = evaluate_action(action("READ_ONLY"), malformed)
+    assert result.outcome == GovernanceOutcome.MANUAL_REVIEW
+    assert result.allowed_to_execute is False
+    assert result.valid is False
+
+
+def test_policy_with_unrecognized_action_member_fails_closed():
+    malformed = GovernancePolicy("bad-policy", frozenset({"ORDER_MUTATION"}), frozenset({ActionType.READ_ONLY}))
+    result = evaluate_action(action("READ_ONLY"), malformed)
+    assert result.outcome == GovernanceOutcome.MANUAL_REVIEW
+    assert result.allowed_to_execute is False
+    assert result.approval_required is True
+    assert result.valid is False
+
+
+def test_mutable_policy_sets_fail_closed():
+    malformed = GovernancePolicy("mutable-policy", {ActionType.ORDER_MUTATION}, {ActionType.READ_ONLY})
+    result = evaluate_action(action("READ_ONLY"), malformed)
+    assert result.outcome == GovernanceOutcome.MANUAL_REVIEW
+    assert result.allowed_to_execute is False
+    assert result.valid is False
+
+
+def test_overlap_between_allow_and_approval_sets_resolves_conservatively():
+    overlapping = GovernancePolicy(
+        "overlap-test",
+        approval_required=frozenset({ActionType.CUSTOMER_COMMUNICATION}),
+        autonomous_allowed=frozenset({ActionType.CUSTOMER_COMMUNICATION}),
+    )
+    result = evaluate_action(action("CUSTOMER_COMMUNICATION"), overlapping)
+    assert result.outcome == GovernanceOutcome.REQUIRE_APPROVAL
+    assert result.allowed_to_execute is False
+    assert result.approval_required is True
