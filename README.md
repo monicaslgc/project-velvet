@@ -99,6 +99,7 @@ These demos are in-memory evaluators. They do **not** persist an event ledger, m
 - [Logic guide](docs/LOGIC_GUIDE.md) — how each workflow makes decisions, what the statuses mean, and where the safety boundaries sit.
 - [Portfolio walkthrough](docs/PORTFOLIO_WALKTHROUGH.md) — a guided route through linked scenarios, plus discussion prompts for a technical review.
 - [Agent proposal output contract](docs/AGENT_PROPOSAL_CONTRACT.md) — strict structured-output validation separated from policy authorization.
+- [Governance boundary consistency](docs/GOVERNANCE_BOUNDARY_CONSISTENCY.md) — verifies the proposal validator and core policy agree on versioned decisions.
 - [Policy versioning and change control](docs/POLICY_VERSIONING.md) — version labels, executable candidate evaluation, regression cases, and human release review.
 - [Practical case-use examples](docs/CASE_USE_EXAMPLES.md) — five synthetic operational stories, expected outcomes, and commands to run.
 - [Extending the demos](docs/EXTENDING_THE_DEMOS.md) — a practical checklist for adding rules, scenarios, regression tests, contracts, and diagrams consistently.
