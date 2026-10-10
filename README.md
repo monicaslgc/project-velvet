@@ -79,7 +79,7 @@ Run `python examples/run_shared_dataset.py` to see the structured outcomes. The 
 
 ## Testing and quality gates
 
-CI runs the unit tests with `pytest-cov` and requires at least **75% overall statement coverage** for the `velvet` package. The report also lists uncovered lines so gaps can be targeted deliberately. Coverage is a signal about which code paths tests exercise; it does not prove that the scenarios are complete, the policy is correct, or production behavior is safe.
+CI runs Ruff lint checks, Pyright static type checks, and the unit tests with `pytest-cov`. It requires at least **75% overall statement coverage** for the `velvet` package. The report also lists uncovered lines so gaps can be targeted deliberately. Coverage and static analysis catch different classes of problems; neither proves that scenarios are complete, policy is correct, or production behavior is safe.
 
 ## What this demonstrates
 - Explicit business rules before AI-assisted recommendations
