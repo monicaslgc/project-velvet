@@ -117,8 +117,8 @@ def evaluate_action(
             False,
             True,
             (
-                f"{action_type.value} requires explicit human approval under {policy.version}.",
-                "This decision does not execute the action.",
+                f"{action_type.value} can create external or business-impacting side effects.",
+                "A human must approve the proposal before any separate execution system acts.",
             ),
         )
     if action_type in policy.autonomous_allowed:
