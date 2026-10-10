@@ -35,7 +35,7 @@ python examples/evaluate_agent_proposals.py
 pytest tests/test_agent_action_contract.py
 ```
 
-The versioned synthetic cases exercise safe read-only output, approval-gated communication, unknown actions, missing fields, and unexpected fields. The tests also pass a non-object payload directly to the validator, since JSON fixtures alone do not cover every in-memory caller behavior.
+The versioned synthetic cases exercise safe read-only output, approval-gated communication, unknown actions, missing fields, and unexpected fields. The tests also pass a non-object payload directly to the validator, since JSON fixtures alone do not cover every in-memory caller behavior. A separate [governance boundary consistency test](GOVERNANCE_BOUNDARY_CONSISTENCY.md) checks that this validator and the core policy agree across the shared versioned case set.
 
 ## Limits
 
