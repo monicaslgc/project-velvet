@@ -41,7 +41,7 @@ FIELD_POLICY = {
     "item_count": (DiscrepancySeverity.MEDIUM, "Item counts disagree between sources."),
 }
 
-def reconcile_orders(expected: OrderSnapshot, observed: OrderSnapshot) -> ReconciliationResult:
+def reconcile_orders(expected: OrderSnapshot | None, observed: OrderSnapshot | None) -> ReconciliationResult:
     """Compare two snapshots; never infer which source is authoritative or repair data."""
     if not isinstance(expected, OrderSnapshot) or not isinstance(observed, OrderSnapshot):
         return ReconciliationResult(None, False, (), True, False, "Both inputs must be OrderSnapshot values.")
