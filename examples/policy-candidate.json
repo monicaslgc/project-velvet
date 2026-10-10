@@ -1,0 +1,15 @@
+{
+  "version": "governance-v2-candidate",
+  "autonomous_allowed": [
+    "READ_ONLY",
+    "INTERNAL_DRAFT",
+    "CUSTOMER_COMMUNICATION",
+    "FINANCIAL_TRANSACTION"
+  ],
+  "approval_required": [
+    "ORDER_MUTATION",
+    "INVENTORY_MUTATION",
+    "EXTERNAL_SYSTEM_CHANGE"
+  ],
+  "purpose": "Intentionally unsafe training example: illustrates how a candidate policy can weaken approval boundaries. Never use as a production policy."
+}
