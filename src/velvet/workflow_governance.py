@@ -50,10 +50,12 @@ class GovernancePolicy:
 
     version: str
     approval_required: frozenset[ActionType]
+    autonomous_allowed: frozenset[ActionType]
 
 
 DEFAULT_POLICY = GovernancePolicy(
     version=POLICY_VERSION,
+    autonomous_allowed=frozenset({ActionType.READ_ONLY, ActionType.INTERNAL_DRAFT}),
     approval_required=frozenset(
         {
             ActionType.CUSTOMER_COMMUNICATION,
@@ -119,7 +121,7 @@ def evaluate_action(
                 "This decision does not execute the action.",
             ),
         )
-    if action_type in (ActionType.READ_ONLY, ActionType.INTERNAL_DRAFT):
+    if action_type in policy.autonomous_allowed:
         return GovernanceDecision(
             action.action_id,
             action_type.value,
@@ -131,8 +133,8 @@ def evaluate_action(
                 "This decision authorizes only the scoped proposal; it does not execute it.",
             ),
         )
-    # A recognized action type missing from the policy's approval set is not
-    # implicitly granted permission. This is the fail-closed default.
+    # A recognized action type must be explicitly allowed or approval-gated.
+    # Being absent from both sets never grants permission.
     return GovernanceDecision(
         action.action_id,
         action_type.value,
