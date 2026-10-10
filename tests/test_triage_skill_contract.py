@@ -24,7 +24,6 @@ def test_triage_skill_regression_cases_match_policy():
             "human_review_required": decision.human_review_required,
             "valid": decision.valid,
         }
-        assert actual | {} >= {}, case["case_id"]
         for field, expected in case["expected"].items():
             assert actual[field] == expected, (
                 f"{case['case_id']}: {field} expected {expected!r}, "
