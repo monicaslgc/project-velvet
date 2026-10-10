@@ -60,3 +60,35 @@ def test_duplicate_or_blank_case_ids_fail_closed():
 def test_missing_decision_fields_are_rejected():
     with pytest.raises(ValueError, match="missing decision fields"):
         compare_policy_snapshots([{"case_id": "x", "decision": {}}], [], "v1", "v2")
+
+@pytest.mark.parametrize(
+    ("field", "value", "message"),
+    [
+        ("outcome", "", "outcome must be a non-blank string"),
+        ("outcome", None, "outcome must be a non-blank string"),
+        ("valid", "true", "valid must be a boolean"),
+        ("reasons", ["ok", 7], "reasons must be a list of strings"),
+        ("reasons", "not-a-list", "reasons must be a list of strings"),
+    ],
+)
+def test_malformed_decision_snapshot_fields_are_rejected(field, value, message):
+    decision = {
+        "outcome": "ALLOW",
+        "allowed_to_execute": True,
+        "approval_required": False,
+        "valid": True,
+        "reasons": [],
+    }
+    decision[field] = value
+    row = {"case_id": "case-1", "decision": decision}
+    with pytest.raises(ValueError, match=message):
+        compare_policy_snapshots([row], [], "v1", "v2")
+
+
+def test_policy_versions_must_not_be_blank():
+    row = {"case_id": "case-1", "decision": {"outcome": "ALLOW", "allowed_to_execute": True, "approval_required": False, "valid": True, "reasons": []}}
+    with pytest.raises(ValueError, match="baseline_version"):
+        compare_policy_snapshots([row], [row], " ", "v2")
+    with pytest.raises(ValueError, match="candidate_version"):
+        compare_policy_snapshots([row], [row], "v1", "")
+
