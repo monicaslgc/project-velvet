@@ -1,0 +1,47 @@
+{
+  "dataset_id": "project-velvet-operational-demo-pack",
+  "dataset_version": "1.0.0",
+  "description": "Fictional, linked order-operations records for deterministic portfolio demos.",
+  "synthetic_data_only": true,
+  "currency_convention": "Integer minor units; 1299 means EUR 12.99 when currency is EUR.",
+  "orders": [
+    {"order_id":"ord-4101","status":"CREATED","version":0,"currency":"EUR","total_minor_units":4999,"item_count":2,"scenario_id":"happy-path-confirmation"},
+    {"order_id":"ord-4102","status":"PROCESSING","version":4,"currency":"EUR","total_minor_units":2598,"item_count":3,"scenario_id":"stale-shipment-event"},
+    {"order_id":"ord-4103","status":"CREATED","version":0,"currency":"EUR","total_minor_units":1899,"item_count":1,"scenario_id":"invalid-created-to-shipped"},
+    {"order_id":"ord-4104","status":"SHIPPED","version":3,"currency":"EUR","total_minor_units":8700,"item_count":3,"scenario_id":"duplicate-carrier-event"},
+    {"order_id":"ord-4105","status":"CONFIRMED","version":1,"currency":"EUR","total_minor_units":12000,"item_count":4,"scenario_id":"shipment-delay-aged-customer-impact"},
+    {"order_id":"ord-4106","status":"PROCESSING","version":2,"currency":"EUR","total_minor_units":7350,"item_count":2,"scenario_id":"payment-financial-risk"},
+    {"order_id":"ord-4107","status":"PROCESSING","version":2,"currency":"EUR","total_minor_units":4299,"item_count":2,"scenario_id":"unknown-exception-category"},
+    {"order_id":"ord-4108","status":"CONFIRMED","version":1,"currency":"EUR","total_minor_units":3150,"item_count":1,"scenario_id":"snapshots-match"}
+  ],
+  "lifecycle_events": [
+    {"scenario_id":"happy-path-confirmation","event_id":"evt-5101","order_id":"ord-4101","from_status":"CREATED","to_status":"CONFIRMED","current_status":"CREATED","current_version":0,"expected_version":0,"previously_seen_event_ids":[]},
+    {"scenario_id":"stale-shipment-event","event_id":"evt-5102","order_id":"ord-4102","from_status":"PROCESSING","to_status":"SHIPPED","current_status":"PROCESSING","current_version":4,"expected_version":3,"previously_seen_event_ids":[]},
+    {"scenario_id":"invalid-created-to-shipped","event_id":"evt-5103","order_id":"ord-4103","from_status":"CREATED","to_status":"SHIPPED","current_status":"CREATED","current_version":0,"expected_version":0,"previously_seen_event_ids":[]},
+    {"scenario_id":"duplicate-carrier-event","event_id":"evt-5104","order_id":"ord-4104","from_status":"SHIPPED","to_status":"DELIVERED","current_status":"SHIPPED","current_version":3,"expected_version":3,"previously_seen_event_ids":["evt-5104"]},
+    {"scenario_id":"cancel-before-processing","event_id":"evt-5105","order_id":"ord-4108","from_status":"CONFIRMED","to_status":"CANCELLED","current_status":"CONFIRMED","current_version":1,"expected_version":1,"previously_seen_event_ids":[]}
+  ],
+  "exceptions": [
+    {"scenario_id":"shipment-delay-aged-customer-impact","exception_id":"exc-6101","order_id":"ord-4105","category":"SHIPMENT_DELAY","age_hours":30,"customer_impact":true,"repeat_count":1,"financial_risk":false,"details":"Carrier milestone has not advanced in the synthetic timeline."},
+    {"scenario_id":"payment-financial-risk","exception_id":"exc-6102","order_id":"ord-4106","category":"PAYMENT_DELAY","age_hours":1,"customer_impact":false,"repeat_count":1,"financial_risk":true,"details":"Synthetic payment response requires reconciliation before any retry."},
+    {"scenario_id":"unknown-exception-category","exception_id":"exc-6103","order_id":"ord-4107","category":"UNKNOWN_SOURCE_CODE","age_hours":3,"customer_impact":false,"repeat_count":1,"financial_risk":false,"details":"Unmapped fictional source-system category."},
+    {"scenario_id":"inventory-repeat-mismatch","exception_id":"exc-6104","order_id":"ord-4103","category":"INVENTORY_MISMATCH","age_hours":4,"customer_impact":false,"repeat_count":3,"financial_risk":false,"details":"Synthetic reservation and available quantities disagree."},
+    {"scenario_id":"address-clarification","exception_id":"exc-6105","order_id":"ord-4108","category":"ADDRESS_VALIDATION","age_hours":2,"customer_impact":true,"repeat_count":1,"financial_risk":false,"details":"Fictional address validation needs customer clarification."}
+  ],
+  "snapshot_pairs": [
+    {"scenario_id":"snapshots-match","order_id":"ord-4108","expected":{"order_id":"ord-4108","status":"CONFIRMED","total_minor_units":3150,"currency":"EUR","item_count":1,"source":"synthetic_order_snapshot"},"observed":{"order_id":"ord-4108","status":"CONFIRMED","total_minor_units":3150,"currency":"EUR","item_count":1,"source":"synthetic_fulfilment_snapshot"}},
+    {"scenario_id":"status-disagreement","order_id":"ord-4105","expected":{"order_id":"ord-4105","status":"CONFIRMED","total_minor_units":12000,"currency":"EUR","item_count":4,"source":"synthetic_order_snapshot"},"observed":{"order_id":"ord-4105","status":"SHIPPED","total_minor_units":12000,"currency":"EUR","item_count":4,"source":"synthetic_fulfilment_snapshot"}},
+    {"scenario_id":"total-and-count-disagreement","order_id":"ord-4104","expected":{"order_id":"ord-4104","status":"SHIPPED","total_minor_units":8700,"currency":"EUR","item_count":3,"source":"synthetic_order_snapshot"},"observed":{"order_id":"ord-4104","status":"SHIPPED","total_minor_units":8900,"currency":"EUR","item_count":2,"source":"synthetic_fulfilment_snapshot"}}
+  ],
+  "proposed_actions": [
+    {"scenario_id":"read-only-inspection","action_id":"act-7101","action_type":"READ_ONLY","requested_by":"demo-agent","description":"Inspect synthetic order context."},
+    {"scenario_id":"customer-message-review","action_id":"act-7102","action_type":"CUSTOMER_COMMUNICATION","requested_by":"demo-agent","description":"Prepare a delivery update for human review; do not send it."},
+    {"scenario_id":"inventory-adjustment-review","action_id":"act-7103","action_type":"INVENTORY_MUTATION","requested_by":"demo-agent","description":"Propose a synthetic inventory adjustment for approval; do not apply it."},
+    {"scenario_id":"financial-refund-review","action_id":"act-7104","action_type":"FINANCIAL_TRANSACTION","requested_by":"demo-agent","description":"Propose a fictional refund for review; do not issue it."},
+    {"scenario_id":"unknown-action-type","action_id":"act-7105","action_type":"UNSUPPORTED_ACTION","requested_by":"demo-agent","description":"Unknown synthetic action that must fail closed."}
+  ],
+  "policy_change_scenarios": [
+    {"scenario_id":"policy-relaxation-regression","case_id":"customer-message","baseline":{"outcome":"REQUIRE_APPROVAL","allowed_to_execute":false,"approval_required":true,"valid":true,"reasons":["Customer communication requires human approval."]},"candidate":{"outcome":"ALLOW","allowed_to_execute":true,"approval_required":false,"valid":true,"reasons":["Candidate policy allows customer communication without approval."]}},
+    {"scenario_id":"policy-relaxation-regression","case_id":"financial-action","baseline":{"outcome":"REQUIRE_APPROVAL","allowed_to_execute":false,"approval_required":true,"valid":true,"reasons":["Financial transaction requires human approval."]},"candidate":{"outcome":"REQUIRE_APPROVAL","allowed_to_execute":false,"approval_required":false,"valid":true,"reasons":["Candidate policy has removed the approval requirement."]}}
+  ]
+}
