@@ -1,4 +1,4 @@
-""""Compare order snapshots and report discrepancies without changing source data."""
+"""Compare order snapshots and report discrepancies without changing source data."""
 from __future__ import annotations
 from dataclasses import dataclass
 from enum import StrEnum
