@@ -72,6 +72,10 @@ Start with the [documentation index](docs/README.md). Highlights:
 - [Scenario catalog](datasets/SCENARIO_CATALOG.md): stable scenario IDs and what each demonstrates.
 - [Extending the demos](docs/EXTENDING_THE_DEMOS.md): checklist for adding rules, scenarios, and tests consistently.
 
+## License
+
+Released under the [MIT License](LICENSE).
+
 ## Repository layout
 
 ```text
