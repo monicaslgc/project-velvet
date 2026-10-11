@@ -22,6 +22,22 @@ The project is backend-only: no UI, real customer data, live integrations, or au
 
 Each demo returns a structured decision with explicit reasons, fails closed on invalid or unknown input, and never executes an action. Details for every demo and policy are in the [demo and policy reference](docs/DEMO_REFERENCE.md).
 
+## How it fits together
+
+```mermaid
+flowchart LR
+    A[Event, exception, snapshots or agent proposal] --> B[Small deterministic rules]
+    B --> C[Orchestrator: the strictest result wins]
+    C --> D[Structured report with reasons]
+    D --> E{Outcome}
+    E -->|Safe, read-only| F[Ready for human review]
+    E -->|Touches customer, stock or money| G[Needs a person's approval]
+    E -->|Unknown or malformed| H[Blocked]
+    F --> I[Nothing is executed]
+    G --> I
+    H --> I
+```
+
 ## Quick start
 
 Requires Python 3.11+.
@@ -33,7 +49,7 @@ python examples/run_shared_dataset.py
 python examples/show_shipment_review.py
 ```
 
-All runnable examples are listed in the [demo reference](docs/DEMO_REFERENCE.md); the ones used as CI smoke tests are in [tests.yml](.github/workflows/tests.yml).
+All 18 runnable examples are listed in the [demo reference](docs/DEMO_REFERENCE.md), and every one of them is executed by the test suite, so the documented commands cannot silently break.
 
 ## Flagship scenario: colour-restock incident
 
@@ -42,6 +58,30 @@ One fictional salon restock order loses a line when a shade runs short. The [fla
 ```bash
 python examples/show_colour_restock_incident.py
 ```
+
+One of the four outcomes, exactly as the script prints it. The proposal is unsupported, so the workflow is blocked and nothing is executed:
+
+```json
+{
+  "workflow_id": "wf-8204",
+  "proposed_action": { "id": "act-7204", "type": "AUTO_SUBSTITUTE_SHADE" },
+  "governance": { "outcome": "MANUAL_REVIEW", "allowed_to_execute": false, "approval_required": true },
+  "workflow_status": "BLOCKED",
+  "reasons": [
+    "High-severity reconciliation discrepancy requires human review.",
+    "Exception priority or risk requires human review.",
+    "Governance could not safely classify the proposed action."
+  ],
+  "action_executed": false
+}
+```
+
+| Proposal on the same incident | Governance | Workflow status |
+|---|---|---|
+| Read-only inspection | `ALLOW` | `HUMAN_REVIEW_REQUIRED` |
+| Draft a customer notice | `REQUIRE_APPROVAL` | `HUMAN_REVIEW_REQUIRED` |
+| Propose a stock correction | `REQUIRE_APPROVAL` | `HUMAN_REVIEW_REQUIRED` |
+| Automatic shade substitution | `MANUAL_REVIEW` | `BLOCKED` |
 
 ## Worked example: shipment delay requiring human review
 
@@ -56,7 +96,7 @@ Run `python examples/show_shipment_review.py` to see the structured outcome. The
 
 ## Testing and quality gates
 
-CI runs Ruff lint checks, Pyright static type checks, runnable-example smoke tests, and the unit tests with `pytest-cov`, requiring at least **75% statement coverage** for the `velvet` package. Coverage and static analysis catch different classes of problems; neither proves that scenarios are complete, policy is correct, or production behavior is safe.
+CI runs on Python 3.11, 3.12 and 3.13: Ruff lint checks, Pyright static type checks, and the test suite with `pytest-cov`, requiring at least **95% statement coverage** for the `velvet` package (currently 100%). The suite includes tests that run every example script and feed bad input to every validator. Coverage and static analysis catch different classes of problems; neither proves that scenarios are complete, policy is correct, or production behavior is safe.
 
 ## Scope boundaries
 
@@ -71,6 +111,7 @@ Start with the [documentation index](docs/README.md). Highlights:
 - [Architecture](docs/ARCHITECTURE.md): layers, module-to-test-to-example map, and design rules; plus the [Mermaid diagrams](docs/diagrams/).
 - [Scenario catalog](datasets/SCENARIO_CATALOG.md): stable scenario IDs and what each demonstrates.
 - [Extending the demos](docs/EXTENDING_THE_DEMOS.md): checklist for adding rules, scenarios, and tests consistently.
+- [Roadmap](docs/ROADMAP.md): what would be improved next, in priority order, and why.
 
 ## License
 

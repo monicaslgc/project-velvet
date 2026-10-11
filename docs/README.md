@@ -33,5 +33,6 @@ All data in this project is synthetic. Paths are relative to this folder.
 
 | Document | Purpose |
 |---|---|
+| [ROADMAP.md](ROADMAP.md) | What would be improved next, in priority order, and why |
 | [EXTENDING_THE_DEMOS.md](EXTENDING_THE_DEMOS.md) | Checklist for adding rules, scenarios, regression tests, contracts, and diagrams |
 | [../datasets/SCENARIO_CATALOG.md](../datasets/SCENARIO_CATALOG.md) | Stable scenario IDs |

@@ -6,9 +6,24 @@ build-backend = "setuptools.build_meta"
 name = "project-velvet"
 version = "0.1.0"
 description = "Backend-only operational workflow demonstrations with deterministic policy checks."
+readme = "README.md"
+authors = [{ name = "Monica Sofia Costa" }]
+keywords = ["ai-governance", "workflow-automation", "policy-engine", "human-in-the-loop", "agent-evaluation"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Quality Assurance",
+]
 requires-python = ">=3.11"
 license = {text = "MIT"}
 dependencies = []
+
+[project.urls]
+Repository = "https://github.com/monicaslgc/project-velvet"
+Documentation = "https://github.com/monicaslgc/project-velvet/tree/main/docs"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "pytest-cov>=6.0", "pyright>=1.1.400", "ruff>=0.11"]
