@@ -1,4 +1,4 @@
-﻿# Demo and policy reference
+# Demo and policy reference
 
 Detailed description of each demo and its policy. Everything here uses synthetic data; see the [README](../README.md) for the overview and quick start.
 
@@ -49,6 +49,8 @@ A read-only report aggregates four checks into one explainable gate: regression 
 ## Demo 10: Operational Workflow Orchestration
 
 A deterministic orchestrator coordinates exception triage, optional read-only order reconciliation, and proposed-action governance into one explainable report. It aggregates the strictest applicable outcome: blocked for invalid/unknown inputs, human review required for elevated risk or side-effecting proposals, and ready for human review when no blocker is found. The sample intentionally requires human review because customer communication is a gated action. It never executes an action or changes an order. Run `python examples/run_operational_workflow.py`.
+
+A parametrized scenario matrix (`tests/test_orchestrator_scenario_matrix.py`) runs every combination of triage outcome, proposed-action type, and reconciliation state (3 x 3 x 6 = 54 cases) and asserts that the reported status is always the strictest applicable one, that unapproved actions are never marked executable, and that each triggered check is explained in the reasons.
 
 
 ## Shared demo data
