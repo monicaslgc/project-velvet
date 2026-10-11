@@ -23,7 +23,7 @@ The executable regression example runs one deterministic evaluator twice using t
 
 The separate `policy-version-comparison.json` fixture remains hand-authored and is useful for exercising added/removed-case comparison logic; it is not a live evaluator comparison.
 
-For a production implementation, persist versioned policy artifacts, tie each decision to the exact policy version and input evidence, generate candidate snapshots from isolated policy builds, and require authenticated review before deployment. Those capabilities are not implemented in this portfolio demo.
+For a production implementation, persist versioned policy artifacts, tie each decision to the exact policy version and input evidence, generate candidate snapshots from isolated policy builds, and require authenticated review before deployment. Those capabilities are not implemented in this demo.
 
 ## Review checklist
 

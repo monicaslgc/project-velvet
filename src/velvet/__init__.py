@@ -1,1 +1,1 @@
-"""Project Velvet portfolio workflow demonstrations."""
+"""Project Velvet workflow demonstrations."""

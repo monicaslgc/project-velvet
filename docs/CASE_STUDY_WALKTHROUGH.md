@@ -112,7 +112,7 @@ pytest tests/test_agent_action_contract.py tests/test_workflow_governance.py
 
 **What this demonstrates:** separation of schema validation, authorization, and execution.
 
-**Limitation:** no payment processor, order API, approval queue, or execution adapter exists in this portfolio.
+**Limitation:** no payment processor, order API, approval queue, or execution adapter exists in this project.
 
 ## Case 4 — A policy change weakens a safety boundary
 

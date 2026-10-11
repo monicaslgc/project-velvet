@@ -1,7 +1,7 @@
 {
   "dataset_id": "project-velvet-operational-demo-pack",
   "dataset_version": "1.0.0",
-  "description": "Fictional, linked order-operations records for deterministic portfolio demos.",
+  "description": "Fictional, linked order-operations records for deterministic demos.",
   "synthetic_data_only": true,
   "currency_convention": "Integer minor units; 1299 means EUR 12.99 when currency is EUR.",
   "orders": [

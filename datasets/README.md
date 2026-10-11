@@ -1,6 +1,6 @@
 # Shared synthetic demo dataset
 
-This folder contains a small, linked, deterministic dataset that can be reused across Project Velvet demos. It is designed for portfolio walkthroughs and automated tests, not production use.
+This folder contains a small, linked, deterministic dataset that can be reused across Project Velvet demos. It is designed for walkthroughs and automated tests, not production use.
 
 ## Files
 - `operational-demo-pack.json`: canonical cross-demo fixture pack, including linked end-to-end workflow scenarios.

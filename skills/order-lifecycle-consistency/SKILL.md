@@ -25,7 +25,7 @@ Evaluate synthetic order events against deterministic lifecycle policy and retur
 - Never mutate an order, send a message, trigger payment, cancel, ship, or refund.
 - Treat version conflicts as unresolved until the authoritative state is re-read and the event is evaluated again.
 - Duplicate detection is only as strong as the event ledger supplied to the evaluator. Do not describe an in-memory check as production-grade idempotency.
-- Keep customer, order, and business data synthetic in portfolio demonstrations.
+- Keep customer, order, and business data synthetic in demonstrations.
 
 ## Output contract
 Return one of: `ALLOWED`, `INVALID_INPUT`, `DUPLICATE_EVENT`, `VERSION_CONFLICT`, `BLOCKED_INVALID_TRANSITION`. Include a reason. Include proposed status/version only for `ALLOWED`. Set human review required for invalid input and version conflict.

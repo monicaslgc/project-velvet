@@ -1,7 +1,7 @@
 # Skill: Order Reconciliation
 
 ## Purpose
-Compare two synthetic order snapshots and report field-level discrepancies with evidence and severity. This skill is a portfolio demonstration, not a live integration.
+Compare two synthetic order snapshots and report field-level discrepancies with evidence and severity. This skill is a demonstration, not a live integration.
 
 ## Rules
 1. Validate both snapshots and ensure they refer to the same order ID. If not, stop and request review.

@@ -1,7 +1,7 @@
 # Skill: Order Exception Triage
 
 ## Purpose
-Classify synthetic order exceptions, explain their priority, and recommend a responsible operational team. This is a portfolio demonstration, not a connection to a live commerce platform.
+Classify synthetic order exceptions, explain their priority, and recommend a responsible operational team. This is a demonstration, not a connection to a live commerce platform.
 
 ## Inputs
 Exception ID, order ID, category, age in hours, customer-impact flag, repeat count, financial-risk flag, and optional source details.

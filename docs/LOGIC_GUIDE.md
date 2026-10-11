@@ -1,6 +1,6 @@
 # Project Velvet: Logic Guide
 
-This guide explains the reasoning behind the demo rules, how the modules relate, and what their outputs mean. The repository is a portfolio of deterministic backend workflow examples built around fictional operational data.
+This guide explains the reasoning behind the demo rules, how the modules relate, and what their outputs mean. The repository is a set of deterministic backend workflow examples built around fictional operational data.
 
 ## 1. The core design pattern
 

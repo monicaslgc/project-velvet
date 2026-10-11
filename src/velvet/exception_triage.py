@@ -1,4 +1,4 @@
-"""Deterministic exception classification and routing for a synthetic portfolio demo."""
+"""Deterministic exception classification and routing for a synthetic demo."""
 from __future__ import annotations
 from dataclasses import dataclass
 from enum import StrEnum

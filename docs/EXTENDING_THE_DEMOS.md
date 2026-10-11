@@ -1,4 +1,4 @@
-# Extending Project Velvet
+﻿# Extending Project Velvet
 
 This guide describes a repeatable way to add a new scenario, rule, or workflow capability without losing traceability across code, tests, documentation, and the shared dataset.
 
@@ -74,7 +74,7 @@ For a behavior change, check which of these need updating:
 4. The shared dataset and scenario catalog under `datasets/`, when the case should be reusable.
 5. Evaluation cases and governance contracts, where applicable.
 6. The relevant `skills/*/SKILL.md` instructions.
-7. The Mermaid flow under `docs/*.mmd`.
+7. The Mermaid flow under `docs/diagrams/*.mmd`.
 8. The human-readable explanation in `README.md` or `docs/`.
 
 Not every change touches every file. The goal is to keep the documentation consistent with the implementation, not to duplicate every detail everywhere.

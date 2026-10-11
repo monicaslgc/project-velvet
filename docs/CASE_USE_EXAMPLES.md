@@ -1,6 +1,6 @@
 # Practical case-use examples
 
-These examples show how Project Velvet's backend logic could be applied to operational workflows. All names, orders, events, and decisions are synthetic. They are portfolio scenarios, not claims about any real company's systems.
+These examples show how Project Velvet's backend logic could be applied to operational workflows. All names, orders, events, and decisions are synthetic. They are illustrative scenarios, not claims about any real company's systems.
 
 ## Case 1 — A shipment delay with a customer update proposal
 

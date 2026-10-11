@@ -1,4 +1,4 @@
-"""Deterministic order-event policy for synthetic portfolio demonstrations."""
+"""Deterministic order-event policy for synthetic demonstrations."""
 from __future__ import annotations
 
 from dataclasses import dataclass
