@@ -7,6 +7,7 @@ All data in this project is synthetic. Paths are relative to this folder.
 | Document | Purpose |
 |---|---|
 | [LOGIC_GUIDE.md](LOGIC_GUIDE.md) | How each workflow decides, what the statuses mean, and where the safety boundaries sit |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Layered diagram and a map from each module to its tests, example, and flow diagram |
 | [DEMO_REFERENCE.md](DEMO_REFERENCE.md) | Every demo and policy in detail, with the commands to run them |
 | [diagrams/](diagrams/) | Mermaid flow for each workflow; start with [architecture-overview.mmd](diagrams/architecture-overview.mmd) |
 

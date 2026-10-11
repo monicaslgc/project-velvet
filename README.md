@@ -60,7 +60,7 @@ Start with the [documentation index](docs/README.md). Highlights:
 
 - [Logic guide](docs/LOGIC_GUIDE.md): how each workflow decides, what the statuses mean, where the safety boundaries sit.
 - [Workflow walkthrough](docs/WORKFLOW_WALKTHROUGH.md) and [shipment review](docs/SHIPMENT_REVIEW_WALKTHROUGH.md): guided routes through the linked scenarios.
-- [Architecture overview](docs/diagrams/architecture-overview.mmd) and the other [Mermaid diagrams](docs/diagrams/).
+- [Architecture](docs/ARCHITECTURE.md): layers, module-to-test-to-example map, and design rules; plus the [Mermaid diagrams](docs/diagrams/).
 - [Scenario catalog](datasets/SCENARIO_CATALOG.md): stable scenario IDs and what each demonstrates.
 - [Extending the demos](docs/EXTENDING_THE_DEMOS.md): checklist for adding rules, scenarios, and tests consistently.
 
