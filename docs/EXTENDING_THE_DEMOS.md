@@ -1,4 +1,4 @@
-﻿# Extending Project Velvet
+# Extending Project Velvet
 
 This guide describes a repeatable way to add a new scenario, rule, or workflow capability without losing traceability across code, tests, documentation, and the shared dataset.
 

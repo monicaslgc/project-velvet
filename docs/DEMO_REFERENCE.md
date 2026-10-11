@@ -2,6 +2,31 @@
 
 Detailed description of each demo and its policy. Everything here uses synthetic data; see the [README](../README.md) for the overview and quick start.
 
+## Run every example
+
+Requires Python 3.11+ and `python -m pip install -e ".[dev]"`. Each script is read-only and uses synthetic data. Two scripts return a non-zero exit code on their bundled sample by design, because they only succeed when the result is `READY_FOR_HUMAN_REVIEW`: `release_readiness_report.py` (the sample candidate policy is intentionally unsafe, so it reports `BLOCKED`) and `run_operational_workflow.py` (the sample proposal needs approval, so it reports `HUMAN_REVIEW_REQUIRED`).
+
+```bash
+python examples/analyze_policy_impact.py
+python examples/audit_demo.py
+python examples/check_skill_contracts.py
+python examples/evaluate_agent_policy.py
+python examples/evaluate_agent_proposals.py
+python examples/evaluate_policy_regression.py
+python examples/evaluate_triage_skill.py
+python examples/governance_demo.py
+python examples/reconciliation_demo.py
+python examples/release_readiness_report.py
+python examples/replay_decisions.py
+python examples/run_demo.py
+python examples/run_operational_workflow.py
+python examples/run_shared_dataset.py
+python examples/show_colour_restock_incident.py
+python examples/show_shipment_review.py
+python examples/triage_demo.py
+python examples/validate_demo_dataset.py
+```r
+
 # Demos
 
 ## Demo 1: Order Lifecycle Consistency
@@ -78,7 +103,7 @@ Run `python examples/run_shared_dataset.py` to validate the pack and evaluate li
 - **P3:** remaining valid exceptions with a supported category.
 - **Unknown category or invalid payload:** route to manual review; do not infer an operational action.
 
-Supported routes: payment delay â†’ payments operations; inventory mismatch â†’ inventory operations; shipment delay â†’ fulfilment operations; address validation â†’ customer operations. These are illustrative synthetic rules.
+Supported routes: payment delay → payments operations; inventory mismatch → inventory operations; shipment delay → fulfilment operations; address validation → customer operations. These are illustrative synthetic rules.
 
 ## Reconciliation policy
 
@@ -106,7 +131,7 @@ The initial contract lives in `contracts/ai-workflow-governance.json` and maps t
 
 ## Design principle
 
-Use deterministic code for policy enforcement. Use AI, where appropriate, to summarize evidence or suggest next steps â€” never as the authority that bypasses transition rules, risk thresholds, or human approval requirements.
+Use deterministic code for policy enforcement. Use AI, where appropriate, to summarize evidence or suggest next steps — never as the authority that bypasses transition rules, risk thresholds, or human approval requirements.
 
 ## Audit Trail + Human Review demo
 

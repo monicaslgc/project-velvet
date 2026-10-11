@@ -31,7 +31,7 @@ flowchart TD
 
 The diagram is conceptual: not every individual demo invokes every other module. The shared scenario runner is the integration point for the linked examples.
 
-## 3. The ten demo capabilities
+## 3. The demo capabilities
 
 ### Order lifecycle consistency
 

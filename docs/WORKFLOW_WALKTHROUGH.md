@@ -1,4 +1,4 @@
-﻿# Project Velvet: Workflow Walkthrough
+# Project Velvet: Workflow Walkthrough
 
 This guide follows the main workflow decisions without requiring a read-through of every module. For a case-by-case view of the problem, synthetic evidence, decision logic, tests, and limitations, see the [case-study walkthrough](CASE_STUDY_WALKTHROUGH.md) and [practical case-use examples](CASE_USE_EXAMPLES.md).
 
@@ -40,7 +40,7 @@ Run `python examples/evaluate_agent_proposals.py`. The proposal contract accepts
 
 Run the agent evaluation, proposal contract checks, skill-contract validation, replay, policy impact comparison, and release-readiness example.
 
-**Design note:** how stable IDs connect requirements to tests; how a changed decision can be detected; and why â€œall tests passâ€ is not equivalent to â€œthe policy is correct.â€
+**Design note:** how stable IDs connect requirements to tests; how a changed decision can be detected; and why “all tests pass” is not equivalent to “the policy is correct.”
 
 ## End-to-end orchestration story
 
@@ -48,12 +48,12 @@ The shared scenario `shipment-delay-customer-review` links an aged shipment exce
 
 This is useful because a single business situation often crosses team boundaries. The point is not to collapse all policies into one giant rule; it is to keep each decision understandable and combine their results at a coordination layer.
 
-Use `python examples/show_shipment_review.py` for a structured, end-to-end output from the linked shipment-delay fixture. It invokes the existing modules and checks that its orchestration status agrees with the shared runner. Use `python examples/run_shared_dataset.py` to inspect the full shared runner's outputs. Use `docs/operational-workflow-orchestration-flow.mmd` for the orchestration diagram.
+Use `python examples/show_shipment_review.py` for a structured, end-to-end output from the linked shipment-delay fixture. It invokes the existing modules and checks that its orchestration status agrees with the shared runner. Use `python examples/run_shared_dataset.py` to inspect the full shared runner's outputs. Use [the orchestration diagram](diagrams/operational-workflow-orchestration-flow.mmd) for the flow, and the [flagship colour-restock incident](FLAGSHIP_SCENARIO.md) for a fuller trace that compares four different agent proposals.
 
 ## Design considerations
 
 1. **Why deterministic rules instead of an LLM making the final decision?** Critical transitions, permissions, and approval boundaries need explicit, testable behavior. An AI component may help summarize evidence or suggest next steps, but should not bypass policy.
-2. **What does â€œfail closedâ€ mean here?** Unknown or malformed input should not be interpreted as permission. The evaluator returns a blocked or human-review outcome according to its policy.
+2. **What does “fail closed” mean here?** Unknown or malformed input should not be interpreted as permission. The evaluator returns a blocked or human-review outcome according to its policy.
 3. **How would you prevent duplicate processing in a real system?** This demo checks duplicate event IDs in the supplied context. A production implementation would also need a durable idempotency strategy, persistence, concurrency controls, and operational recovery.
 4. **How would you tune prioritization?** Establish domain-owned definitions, inspect historical examples, validate thresholds with stakeholders, measure false positives and missed urgent cases, and version policy changes. The current rules are illustrative.
 5. **How would you know whether a policy change is safe?** Compare baseline and candidate decisions, run regression cases, check requirement-to-test links, review newly allowed or less-protected actions, and require a human release decision.
