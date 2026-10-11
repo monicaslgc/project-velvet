@@ -76,6 +76,15 @@
       "total_minor_units": 3150,
       "item_count": 1,
       "scenario_id": "snapshots-match"
+    },
+    {
+      "order_id": "ord-4201",
+      "status": "CONFIRMED",
+      "version": 1,
+      "currency": "EUR",
+      "total_minor_units": 18450,
+      "item_count": 6,
+      "scenario_id": "colour-restock-incident"
     }
   ],
   "lifecycle_events": [
@@ -131,6 +140,17 @@
       "order_id": "ord-4108",
       "from_status": "CONFIRMED",
       "to_status": "CANCELLED",
+      "current_status": "CONFIRMED",
+      "current_version": 1,
+      "expected_version": 1,
+      "previously_seen_event_ids": []
+    },
+    {
+      "scenario_id": "colour-restock-out-of-order-event",
+      "event_id": "evt-5201",
+      "order_id": "ord-4201",
+      "from_status": "PROCESSING",
+      "to_status": "SHIPPED",
       "current_status": "CONFIRMED",
       "current_version": 1,
       "expected_version": 1,
@@ -192,6 +212,17 @@
       "repeat_count": 1,
       "financial_risk": false,
       "details": "Fictional address validation needs customer clarification."
+    },
+    {
+      "scenario_id": "colour-restock-inventory-mismatch",
+      "exception_id": "exc-6201",
+      "order_id": "ord-4201",
+      "category": "INVENTORY_MISMATCH",
+      "age_hours": 26,
+      "customer_impact": true,
+      "repeat_count": 3,
+      "financial_risk": false,
+      "details": "Reserved and available quantities for one colour shade disagree for the third time."
     }
   ],
   "snapshot_pairs": [
@@ -254,6 +285,26 @@
         "item_count": 2,
         "source": "synthetic_fulfilment_snapshot"
       }
+    },
+    {
+      "scenario_id": "colour-restock-line-dropped",
+      "order_id": "ord-4201",
+      "expected": {
+        "order_id": "ord-4201",
+        "status": "CONFIRMED",
+        "total_minor_units": 18450,
+        "currency": "EUR",
+        "item_count": 6,
+        "source": "synthetic_order_snapshot"
+      },
+      "observed": {
+        "order_id": "ord-4201",
+        "status": "CONFIRMED",
+        "total_minor_units": 15375,
+        "currency": "EUR",
+        "item_count": 5,
+        "source": "synthetic_warehouse_snapshot"
+      }
     }
   ],
   "proposed_actions": [
@@ -291,6 +342,34 @@
       "action_type": "UNSUPPORTED_ACTION",
       "requested_by": "demo-agent",
       "description": "Unknown synthetic action that must fail closed."
+    },
+    {
+      "scenario_id": "colour-restock-read-only-inspection-proposal",
+      "action_id": "act-7201",
+      "action_type": "READ_ONLY",
+      "requested_by": "demo-agent",
+      "description": "Inspect reservation and allocation history for the mismatched shade."
+    },
+    {
+      "scenario_id": "colour-restock-customer-notice-proposal",
+      "action_id": "act-7202",
+      "action_type": "CUSTOMER_COMMUNICATION",
+      "requested_by": "demo-agent",
+      "description": "Draft a partial-shipment notice for the salon account; do not send it."
+    },
+    {
+      "scenario_id": "colour-restock-stock-correction-proposal",
+      "action_id": "act-7203",
+      "action_type": "INVENTORY_MUTATION",
+      "requested_by": "demo-agent",
+      "description": "Propose a stock correction for the mismatched shade; do not apply it."
+    },
+    {
+      "scenario_id": "colour-restock-auto-substitution-proposal",
+      "action_id": "act-7204",
+      "action_type": "AUTO_SUBSTITUTE_SHADE",
+      "requested_by": "demo-agent",
+      "description": "Replace the unavailable shade with a similar one without customer confirmation."
     }
   ],
   "policy_change_scenarios": [
@@ -358,6 +437,34 @@
       "workflow_id": "wf-8103",
       "exception_id": "exc-6102",
       "action_id": "act-7104"
+    },
+    {
+      "scenario_id": "colour-restock-read-only-inspection",
+      "workflow_id": "wf-8201",
+      "exception_id": "exc-6201",
+      "action_id": "act-7201",
+      "snapshot_scenario_id": "colour-restock-line-dropped"
+    },
+    {
+      "scenario_id": "colour-restock-customer-notice",
+      "workflow_id": "wf-8202",
+      "exception_id": "exc-6201",
+      "action_id": "act-7202",
+      "snapshot_scenario_id": "colour-restock-line-dropped"
+    },
+    {
+      "scenario_id": "colour-restock-stock-correction",
+      "workflow_id": "wf-8203",
+      "exception_id": "exc-6201",
+      "action_id": "act-7203",
+      "snapshot_scenario_id": "colour-restock-line-dropped"
+    },
+    {
+      "scenario_id": "colour-restock-auto-substitution",
+      "workflow_id": "wf-8204",
+      "exception_id": "exc-6201",
+      "action_id": "act-7204",
+      "snapshot_scenario_id": "colour-restock-line-dropped"
     }
   ]
 }

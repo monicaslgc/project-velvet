@@ -42,7 +42,7 @@ def test_shared_pack_runs_through_all_five_demo_policies():
     assert {row["demo"] for row in results} == {
         "lifecycle", "triage", "reconciliation", "governance", "orchestration", "policy_impact"
     }
-    assert len(results) == 22
+    assert len(results) == 33
 
 
 def test_lifecycle_scenarios_reach_expected_decisions():

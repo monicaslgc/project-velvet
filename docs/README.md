@@ -15,6 +15,7 @@ All data in this project is synthetic. Paths are relative to this folder.
 
 | Document | Purpose |
 |---|---|
+| [FLAGSHIP_SCENARIO.md](FLAGSHIP_SCENARIO.md) | The colour-restock incident traced through every stage with four agent proposals |
 | [WORKFLOW_WALKTHROUGH.md](WORKFLOW_WALKTHROUGH.md) | Guided route through the linked scenarios and design decisions |
 | [SHIPMENT_REVIEW_WALKTHROUGH.md](SHIPMENT_REVIEW_WALKTHROUGH.md) | The shipment-delay scenario, end to end |
 | [CASE_STUDY_WALKTHROUGH.md](CASE_STUDY_WALKTHROUGH.md) | Case studies with limitations |

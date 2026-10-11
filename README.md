@@ -35,6 +35,14 @@ python examples/show_shipment_review.py
 
 All runnable examples are listed in the [demo reference](docs/DEMO_REFERENCE.md); the ones used as CI smoke tests are in [tests.yml](.github/workflows/tests.yml).
 
+## Flagship scenario: colour-restock incident
+
+One fictional salon restock order loses a line when a shade runs short. The [flagship walkthrough](docs/FLAGSHIP_SCENARIO.md) traces it through lifecycle, triage, and reconciliation, then runs four different agent proposals (read-only, customer notice, stock correction, automatic shade substitution) through the same incident. Only the proposal changes; the outcomes range from human review to blocked, and nothing is ever executed.
+
+```bash
+python examples/show_colour_restock_incident.py
+```
+
 ## Worked example: shipment delay requiring human review
 
 The shared scenario `shipment-delay-customer-review` shows how separate checks combine without giving an agent permission to act:
